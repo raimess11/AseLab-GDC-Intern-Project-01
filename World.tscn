@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://actor/Enemy/Enemy.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Object/InteracObject.tscn" type="PackedScene" id=3]
+[ext_resource path="res://actor/Player/Player.tscn" type="PackedScene" id=4]
+
+[node name="World" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource( 4 )]
+
+[node name="Enemy" parent="." instance=ExtResource( 2 )]
+
+[node name="InteracObject" parent="." instance=ExtResource( 3 )]
