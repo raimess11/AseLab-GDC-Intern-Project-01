@@ -1,7 +1,7 @@
 # AseLab-GDC-Intern-Project-01
 project game dav pertama kita, dilakukan secara kolaborasi 
 
--sudah ada asset sementara, di folder RPG HeartBeast src... bisa di gunakan untuk mengisi sprite yang di butuhkan..
+- sudah ada asset sementara, di folder RPG HeartBeast src... bisa di gunakan untuk mengisi sprite yang di butuhkan..
 
 NEVER TOUCH MAIN BRACH
 
