@@ -25,7 +25,7 @@ how to pull & merge?
 - base: dev <- compare: branch kalian yg main di merge
 - create pull request
 
-kalau suah jangan sentuh merge... nanti rahma yang bakal  merge:)
+kalau sudah jangan sentuh merge... nanti rahma yang bakal  merge:)
 
 
 more note:
