@@ -7,6 +7,7 @@ NEVER TOUCH MAIN BRACH
 
 How to push?
 push harus di lakukan di Branch baru, JANGAN PUSH KE DEV LANGSUNG!!!
+make sure current branch nya udah di origin/dev
 - new branch
 - based branch pilih yang dev
 - kasih nama sesuai aktifitas kalian
