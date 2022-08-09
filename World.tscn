@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
+[ext_resource path="res://actor/NPCs/NPCs.tscn" type="PackedScene" id=1]
 [ext_resource path="res://actor/Enemy/Enemy.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Object/InteracObject.tscn" type="PackedScene" id=3]
 [ext_resource path="res://actor/Player/Player.tscn" type="PackedScene" id=4]
@@ -11,3 +12,8 @@
 [node name="Enemy" parent="." instance=ExtResource( 2 )]
 
 [node name="InteracObject" parent="." instance=ExtResource( 3 )]
+
+[node name="NPCs" parent="." instance=ExtResource( 1 )]
+position = Vector2( 224, 160 )
+
+[editable path="NPCs"]
