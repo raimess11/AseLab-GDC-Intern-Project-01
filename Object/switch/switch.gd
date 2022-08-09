@@ -18,3 +18,6 @@ func _ready()->void:
 		for actionable in actionables_container.get_children():
 			if actionable.link_code == link_code:
 				connect("switch_turned",actionable,"_change_state")
+
+func _on_area_entered(switch: Area2D) -> void:
+	switch.switch_turned(facing)
