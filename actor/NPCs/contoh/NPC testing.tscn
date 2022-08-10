@@ -97,6 +97,10 @@ anims/contohFungsi = SubResource( 5 )
 [node name="AdditionalTrigger" parent="NPCs/DialougeController/ForTrigger" index="0"]
 script = ExtResource( 3 )
 
+[node name="SpeechBubble" parent="NPCs/DialougeController" index="1"]
+visible = false
+containerLengthPerTextSize = 200
+
 [node name="Player" parent="." instance=ExtResource( 2 )]
 light_mask = 8
 position = Vector2( 296, 96 )

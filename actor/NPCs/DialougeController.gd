@@ -64,7 +64,6 @@ func dialougeProcess():
 		if "Trigger" in line[lineNum]:
 			triggerProcess()
 		yield(self,"dialougeFinish")
-		print(lineNum)
 		lineNum += 1
 	else:
 		lineNum = 0
