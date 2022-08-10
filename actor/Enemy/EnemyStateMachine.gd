@@ -1,6 +1,5 @@
 extends KinematicBody2D
 
-
 enum STATE {
 	IDLE,
 	WANDER,
@@ -39,11 +38,10 @@ func accelerate(acceleration_vector):
 	velocity += acceleration_vector
 	velocity = velocity.clamped(run_speed)
 
-#W4iting momment
-func mikir():
+#Musuh menunggu/mikir mau ke jalan yang mana
+func enemy_idle():
 	$Timer.start(rand_range(0,3))
 	
-
 #Aksi IDLE
 func _ready():
 	state_enemy = STATE.IDLE # Replace with function body.
@@ -82,6 +80,5 @@ func _physics_process(delta):
 			accelerate_to_point(target_position, akselerasi * delta)
 			if is_at_target_position():
 				state_enemy = STATE.IDLE
-				mikir()
-			print("wwwww")
+				enemy_idle()
 	velocity = move_and_slide(velocity, Vector2.UP)
