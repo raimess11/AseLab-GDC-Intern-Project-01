@@ -39,35 +39,49 @@ func accelerate(acceleration_vector):
 	velocity += acceleration_vector
 	velocity = velocity.clamped(run_speed)
 
+#W4iting momment
+func mikir():
+	$Timer.start(rand_range(0,3))
+	
+
 #Aksi IDLE
 func _ready():
 	state_enemy = STATE.IDLE # Replace with function body.
+	update_target_position()
+	$Timer.one_shot = true
 
 #Aksi Chase
 func _on_Area2D_body_entered(body): # Replace with function body.
-	if body.name == "player":
+	if "Player" in body.name:
 		player = body
 		state_enemy = STATE.CHASE
 
 #Aksi WANDER
 func _on_Area2D_body_exited(body): # Replace with function body.
-	if body.name == "player":
+	if "Player" in body.name:
 		player = null
 		state_enemy = STATE.WANDER
 
 func _physics_process(delta):
 	#Untuk Enemy
-	match STATE: 
+	match state_enemy: 
 		#Lakukan aksi IDLE
 		STATE.IDLE:
-			pass
+			velocity = Vector2.ZERO
+			if $Timer.is_stopped():
+				state_enemy = STATE.WANDER
+				update_target_position()
+			
 		#Lakukan aksi WANDER
 		STATE.CHASE:
-			 if player:
-					velocity = position.direction_to(player.position) * run_speed
-					velocity = move_and_slide(velocity)
+			if not (player == null):
+				velocity = position.direction_to(player.global_position) * run_speed * 100 * delta
+				
 		#Lakukan aksi Chase
 		STATE.WANDER:
 			accelerate_to_point(target_position, akselerasi * delta)
 			if is_at_target_position():
 				state_enemy = STATE.IDLE
+				mikir()
+			print("wwwww")
+	velocity = move_and_slide(velocity, Vector2.UP)
