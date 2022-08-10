@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://actor/NPCs/QuestionMark.png" type="Texture" id=2]
+[ext_resource path="res://actor/NPCs/NPCs.gd" type="Script" id=3]
+[ext_resource path="res://actor/NPCs/DialougeController.gd" type="Script" id=4]
+[ext_resource path="res://actor/NPCs/SpeechBubble.tscn" type="PackedScene" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 31.5, 31.5 )
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 124.036
+
+[node name="NPCs" type="KinematicBody2D"]
+script = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+modulate = Color( 0.0313726, 0, 1, 1 )
+position = Vector2( -0.5, -0.5 )
+z_index = 1
+shape = SubResource( 1 )
+
+[node name="Interaction" type="Area2D" parent="."]
+
+[node name="box" type="CollisionShape2D" parent="Interaction"]
+shape = SubResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+
+[node name="QuestionMark" type="Sprite" parent="."]
+visible = false
+position = Vector2( -2.84217e-14, -83 )
+scale = Vector2( 0.0566406, 0.0795899 )
+texture = ExtResource( 2 )
+
+[node name="DialougeController" type="Node2D" parent="."]
+script = ExtResource( 4 )
+dialogPath = "res://actor/NPCs/contoh/contoh.json"
+
+[node name="ForTrigger" type="AnimationPlayer" parent="DialougeController"]
+
+[node name="AdditionalTrigger" type="Node2D" parent="DialougeController/ForTrigger"]
+
+[node name="SpeechBubble" parent="DialougeController" instance=ExtResource( 5 )]
+
+[connection signal="body_entered" from="Interaction" to="." method="_on_Interaction_body_entered"]
+[connection signal="body_exited" from="Interaction" to="." method="_on_Interaction_body_exited"]
