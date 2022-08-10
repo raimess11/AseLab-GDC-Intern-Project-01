@@ -6,13 +6,15 @@ onready var speechBalloon = $SpeechBubble
 
 var line: Array = []
 var lineNum: int = 0
+var lineSave = []
 
 signal dialougeFinish
 
 func _ready():
 	speechBalloon.visible = false
 	line = getDialog()
-	
+
+
 func getDialog() -> Array:
 	var f = File.new()
 	assert(f.file_exists(dialogPath), "File path does not exist")
@@ -49,27 +51,27 @@ func set_isPlayingTrigger(value):
 	if !isPlayingChat and !isPlayingTrigger:
 		self.isPlaying = false
 
-func _input(delta):
-	if isPlaying:
-		yield(self,"dialougeFinish")
-	if get_parent().active and Input.is_action_just_pressed("ui_accept"):
-		dialougeProcess()
-
 func dialougeProcess():
+	visible = true
 	if lineNum < len(line):
+		get_parent().get_node("QuestionMark").visible = false
 		if "Chat" in line[lineNum]:
 			chatProcess()
 		else:
 			speechBalloon.visible = false
 		if "Trigger" in line[lineNum]:
 			triggerProcess()
+		
 		yield(self,"dialougeFinish")
+		print(2)
 		lineNum += 1
 	else:
+		get_parent().get_node("QuestionMark").visible = true
 		lineNum = 0
 		speechBalloon.visible = false
 		get_node("ForTrigger").play("RESET")
-		
+	if get_parent().bodyExit:
+		lineNum = 0
 func chatProcess():
 	speechBalloon.visible = true
 	speechBalloon.position.y = -40
@@ -78,7 +80,13 @@ func chatProcess():
 	
 func triggerProcess():
 	self.isPlayingTrigger = true
-	print('m')
 	get_node("ForTrigger").play(line[lineNum]["Trigger"])
 	yield(get_node("ForTrigger"),"animation_finished")
 	self.isPlayingTrigger = false
+
+
+func _on_InputController_input_proceed():
+	if isPlaying:
+		yield(self,"dialougeFinish")
+	elif get_parent().active:
+		dialougeProcess()

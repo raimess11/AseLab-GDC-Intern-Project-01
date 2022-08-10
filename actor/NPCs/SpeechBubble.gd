@@ -27,26 +27,40 @@ func showLine(dialogLine, lineNum):
 	dialogText.margin_right = xTextSize
 	#animation
 	dialogText.visible_characters = 0
-	tween.remove_all()
-	tween.interpolate_property(anchor, "position", Vector2(0,2), Vector2(0,0), 0.2)
-	tween.start()
-	animationPlayer.play("containerFadeIn")
-	yield(tween,"tween_all_completed")
-	while dialogText.visible_characters < len(dialogText.text):
-		dialogText.visible_characters += 1
-		timer.start()
-		yield(timer,"timeout")
+	animationPlayer.seek(0,true)
+	animationPlayer.play("containerEnter")
+	timer.start(animationPlayer.current_animation_length)
+	
+	yield(timer,"timeout")
+	var animationTypeWrite = Animation.new()
+	animationPlayer.add_animation("typeWrite", animationTypeWrite)
+	var i = animationTypeWrite.add_track(Animation.TYPE_VALUE)
+	animationTypeWrite.track_set_path(i,"Anchor/Chat:visible_characters")
+	var floatn = 0.0
+	for n in range(0, len(dialogText.text)):
+		floatn = n/10.0
+		animationTypeWrite.track_insert_key(i,floatn,n)
+	animationPlayer.get_animation("typeWrite").length = (animationPlayer.get_animation("typeWrite").track_get_key_count(i)/10) + 0.01
+	animationPlayer.play("typeWrite")
+	yield(animationPlayer, "animation_finished")
 	get_parent().isPlayingChat = false
+	skipDialouge = false
 	
 	
 
 func _input(event):
 	if get_parent().isPlayingChat and Input.is_action_just_pressed("ui_accept"):
-		tween.remove_all()
-		tween.interpolate_property(anchor, "position", Vector2(0,2), Vector2(0,0), 0)
-		tween.start()
-		animationPlayer.seek(0.2, true)
-		dialogText.visible_characters = len(dialogText.text)
+		skipDialouge()
+		
+var skipDialouge = false
+func skipDialouge():
+	animationPlayer.advance(len(dialogText.text))
+	skipDialouge = true
+	
+func skipDialougeDueToExited():
+	animationPlayer.advance(len(dialogText.text))
+	skipDialouge = true
+	get_parent().lineNum = -1
 
 
 
