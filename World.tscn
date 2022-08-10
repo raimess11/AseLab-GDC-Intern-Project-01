@@ -8,6 +8,7 @@
 [node name="World" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
+position = Vector2( 2, 0 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 current = true
@@ -17,6 +18,4 @@ current = true
 [node name="InteracObject" parent="." instance=ExtResource( 3 )]
 
 [node name="NPCs" parent="." instance=ExtResource( 1 )]
-position = Vector2( 224, 160 )
-
-[editable path="NPCs"]
+position = Vector2( -203, 10 )

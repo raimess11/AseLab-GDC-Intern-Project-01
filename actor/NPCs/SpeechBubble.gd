@@ -63,7 +63,7 @@ func showLine(dialogLine, lineNum):
 	
 
 func _input(event):
-	if get_parent().isPlayingChat and Input.is_action_just_pressed("ui_accept"):
+	if get_parent().isPlayingChat and Input.is_action_just_pressed("interact"):
 		tween.remove_all()
 		tween.interpolate_property(anchor, "position", Vector2(0,2), Vector2(0,0), 0)
 		tween.start()

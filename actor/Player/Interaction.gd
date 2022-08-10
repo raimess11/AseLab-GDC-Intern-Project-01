@@ -32,8 +32,33 @@ func _on_Interaction_body_entered(body) :
 	interaction_target = body
 	emit_signal("on_interactable_changed", interaction_target)
 
+func _on_Interaction_area_entered(area):
+	
+	var canSpeak := false
+	var areaParent : Node = area.get_parent()
+	
+	if (areaParent.has_method("interaction_can_speak")) :
+		canSpeak = areaParent.interaction_can_speak(get_node(interaction_parent))
+	
+	if not canSpeak :
+		return
+	
+	interaction_target = areaParent
+	emit_signal("on_interactable_changed", interaction_target)
+
 func _on_Interaction_body_exited(body) :
 	#kalo body yang keluar sama dengan target, null kan
+	if (body.has_method("interaction_can_speak")) :
+		return
+		
 	if (body == interaction_target) :
+		interaction_target = null
+		emit_signal("on_interactable_changed", null)
+
+func _on_Interaction_area_exited(area):
+	
+	var areaParent : Node = area.get_parent()
+	
+	if (areaParent == interaction_target) :
 		interaction_target = null
 		emit_signal("on_interactable_changed", null)

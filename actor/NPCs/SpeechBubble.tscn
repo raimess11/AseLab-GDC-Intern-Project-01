@@ -80,7 +80,6 @@ margin_top = -8.0
 margin_bottom = -8.0
 custom_fonts/normal_font = SubResource( 1 )
 scroll_active = false
-deselect_on_focus_loss_enabled = false
 
 [node name="Container" type="NinePatchRect" parent="Anchor"]
 show_behind_parent = true

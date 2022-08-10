@@ -52,7 +52,7 @@ func set_isPlayingTrigger(value):
 func _input(delta):
 	if isPlaying:
 		yield(self,"dialougeFinish")
-	if get_parent().active and Input.is_action_just_pressed("ui_accept"):
+	if get_parent().active and Input.is_action_just_pressed("interact"):
 		dialougeProcess()
 
 func dialougeProcess():
