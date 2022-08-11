@@ -22,6 +22,7 @@ func _on_Interaction_body_entered(body):
 func _on_Interaction_body_exited(body):
 	if $DialougeController/SpeechBubble/AnimationPlayer.is_playing():
 		$DialougeController/SpeechBubble.skipDialougeDueToExited()
+	$DialougeController/ForTrigger.play("RESET")
 	if body.name == "Player":
 		self.active = false
 	dialougeController.visible = false

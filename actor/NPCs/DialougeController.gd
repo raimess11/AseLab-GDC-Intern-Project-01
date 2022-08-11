@@ -61,7 +61,6 @@ func dialougeProcess():
 			speechBalloon.visible = false
 		if "Trigger" in line[lineNum]:
 			triggerProcess()
-		
 		yield(self,"dialougeFinish")
 		print(2)
 		lineNum += 1
@@ -84,7 +83,7 @@ func triggerProcess():
 	yield(get_node("ForTrigger"),"animation_finished")
 	self.isPlayingTrigger = false
 
-
+#setiap kali space/input untuk lanjut diklik
 func _on_InputController_input_proceed():
 	if isPlaying:
 		yield(self,"dialougeFinish")

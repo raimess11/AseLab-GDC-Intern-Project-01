@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://actor/NPCs/NPCs.tscn" type="PackedScene" id=1]
 [ext_resource path="res://actor/Player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://actor/NPCs/contoh/AdditionalTrigger1.gd" type="Script" id=3]
+[ext_resource path="res://actor/NPCs/contoh/AdditionalTrigger2.gd" type="Script" id=4]
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 48.0
@@ -83,6 +84,55 @@ func _physics_process(delta):
 [sub_resource type="CircleShape2D" id=6]
 radius = 48.0
 
+[sub_resource type="Animation" id=7]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("../Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "contohAnimasi"
+length = 0.201
+tracks/0/type = "value"
+tracks/0/path = NodePath("../Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "contohTrigger"
+length = 0.01
+tracks/0/type = "method"
+tracks/0/path = NodePath("ForTrigger/AdditionalTrigger")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "contohTrigger"
+} ]
+}
+
 [node name="Node2D" type="Node2D"]
 
 [node name="NPCs" parent="." instance=ExtResource( 1 )]
@@ -114,6 +164,17 @@ position = Vector2( 736, 352 )
 
 [node name="box" parent="NPCs2/Interaction" index="0"]
 shape = SubResource( 6 )
+
+[node name="DialougeController" parent="NPCs2" index="4"]
+dialogPath = "res://actor/NPCs/contoh/contoh1.json"
+
+[node name="ForTrigger" parent="NPCs2/DialougeController" index="0"]
+anims/RESET = SubResource( 7 )
+anims/contohAnimasi = SubResource( 8 )
+anims/contohTrigger = SubResource( 9 )
+
+[node name="AdditionalTrigger" parent="NPCs2/DialougeController/ForTrigger" index="0"]
+script = ExtResource( 4 )
 
 [editable path="NPCs"]
 [editable path="NPCs2"]
