@@ -1,0 +1,161 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://UIUX/main_menu/Main Menu.gd" type="Script" id=1]
+[ext_resource path="res://UIUX/Asset/TheLastShurikenRegular-GOw5a.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://UIUX/Asset/20493236.jpg" type="Texture" id=4]
+[ext_resource path="res://UIUX/Asset/grunge brush red.png" type="Texture" id=6]
+
+[sub_resource type="DynamicFontData" id=3]
+font_path = "res://UIUX/Asset/Karasha-z8mYw.otf"
+
+[sub_resource type="DynamicFont" id=1]
+size = 60
+extra_spacing_top = 24
+extra_spacing_bottom = 10
+font_data = SubResource( 3 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 20
+extra_spacing_top = -2
+extra_spacing_bottom = 7
+extra_spacing_char = 5
+font_data = ExtResource( 2 )
+
+[node name="Main Menu" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="20493236" type="Sprite" parent="."]
+position = Vector2( 471.35, 281.5 )
+scale = Vector2( 0.864628, 0.8875 )
+texture = ExtResource( 4 )
+
+[node name="GrungeBrushRed" type="Sprite" parent="."]
+position = Vector2( 502.734, 277.87 )
+rotation = 0.0436332
+scale = Vector2( 0.305975, 0.113976 )
+texture = ExtResource( 6 )
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+margin_left = 316.0
+margin_top = 197.0
+margin_right = 708.0
+margin_bottom = 403.0
+custom_constants/separation = 10
+alignment = 1
+
+[node name="Title" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
+margin_right = 392.0
+margin_bottom = 113.0
+
+[node name="Samurai Of Void" type="Label" parent="CenterContainer/VBoxContainer/Title"]
+margin_right = 392.0
+margin_bottom = 113.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 3
+custom_constants/shadow_offset_y = 5
+custom_fonts/font = SubResource( 1 )
+text = "Samurai Of Void"
+
+[node name="Selection" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
+margin_top = 123.0
+margin_right = 392.0
+margin_bottom = 206.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/Selection"]
+margin_left = 120.0
+margin_right = 271.0
+margin_bottom = 83.0
+
+[node name="CenterContainer" type="CenterContainer" parent="CenterContainer/VBoxContainer/Selection/VBoxContainer"]
+margin_right = 151.0
+margin_bottom = 25.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/Selection/VBoxContainer/CenterContainer"]
+margin_left = 23.0
+margin_right = 128.0
+margin_bottom = 25.0
+
+[node name="Selector" type="Label" parent="CenterContainer/VBoxContainer/Selection/VBoxContainer/CenterContainer/HBoxContainer"]
+margin_right = 10.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 10, 0 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 3
+custom_constants/shadow_offset_y = 3
+custom_fonts/font = SubResource( 2 )
+text = ">"
+
+[node name="Start" type="Label" parent="CenterContainer/VBoxContainer/Selection/VBoxContainer/CenterContainer/HBoxContainer"]
+margin_left = 14.0
+margin_right = 105.0
+margin_bottom = 25.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 3
+custom_constants/shadow_offset_y = 3
+custom_fonts/font = SubResource( 2 )
+text = "Start"
+
+[node name="CenterContainer2" type="CenterContainer" parent="CenterContainer/VBoxContainer/Selection/VBoxContainer"]
+margin_top = 29.0
+margin_right = 151.0
+margin_bottom = 54.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/Selection/VBoxContainer/CenterContainer2"]
+margin_right = 151.0
+margin_bottom = 25.0
+
+[node name="Selector" type="Label" parent="CenterContainer/VBoxContainer/Selection/VBoxContainer/CenterContainer2/HBoxContainer"]
+margin_right = 10.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 10, 0 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 3
+custom_constants/shadow_offset_y = 3
+custom_fonts/font = SubResource( 2 )
+text = ">"
+
+[node name="Tutorial" type="Label" parent="CenterContainer/VBoxContainer/Selection/VBoxContainer/CenterContainer2/HBoxContainer"]
+margin_left = 14.0
+margin_right = 151.0
+margin_bottom = 25.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 3
+custom_constants/shadow_offset_y = 3
+custom_fonts/font = SubResource( 2 )
+text = "Tutorial"
+
+[node name="CenterContainer3" type="CenterContainer" parent="CenterContainer/VBoxContainer/Selection/VBoxContainer"]
+margin_top = 58.0
+margin_right = 151.0
+margin_bottom = 83.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/Selection/VBoxContainer/CenterContainer3"]
+margin_left = 36.0
+margin_right = 114.0
+margin_bottom = 25.0
+
+[node name="Selector" type="Label" parent="CenterContainer/VBoxContainer/Selection/VBoxContainer/CenterContainer3/HBoxContainer"]
+margin_right = 10.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 10, 0 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 3
+custom_constants/shadow_offset_y = 3
+custom_fonts/font = SubResource( 2 )
+text = ">"
+
+[node name="Quit" type="Label" parent="CenterContainer/VBoxContainer/Selection/VBoxContainer/CenterContainer3/HBoxContainer"]
+margin_left = 14.0
+margin_right = 78.0
+margin_bottom = 25.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 3
+custom_constants/shadow_offset_y = 3
+custom_fonts/font = SubResource( 2 )
+text = "Quit"
