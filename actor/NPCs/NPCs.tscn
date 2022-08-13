@@ -1,6 +1,6 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://RPG HeartBeast rsc/Enemies/Bat.png" type="Texture" id=1]
 [ext_resource path="res://actor/NPCs/QuestionMark.png" type="Texture" id=2]
 [ext_resource path="res://actor/NPCs/NPCs.gd" type="Script" id=3]
 [ext_resource path="res://actor/NPCs/DialougeController.gd" type="Script" id=4]
@@ -11,6 +11,38 @@ extents = Vector2( 31.5, 31.5 )
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 124.036
+
+[sub_resource type="Animation" id=3]
+resource_name = "Idle"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
 
 [node name="NPCs" type="KinematicBody2D"]
 script = ExtResource( 3 )
@@ -28,6 +60,7 @@ shape = SubResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
+hframes = 5
 
 [node name="QuestionMark" type="Sprite" parent="."]
 visible = false
@@ -44,6 +77,10 @@ dialogPath = "res://actor/NPCs/contoh/contoh.json"
 [node name="AdditionalTrigger" type="Node2D" parent="DialougeController/ForTrigger"]
 
 [node name="SpeechBubble" parent="DialougeController" instance=ExtResource( 5 )]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Idle = SubResource( 3 )
+anims/RESET = SubResource( 4 )
 
 [connection signal="body_entered" from="Interaction" to="." method="_on_Interaction_body_entered"]
 [connection signal="body_exited" from="Interaction" to="." method="_on_Interaction_body_exited"]
