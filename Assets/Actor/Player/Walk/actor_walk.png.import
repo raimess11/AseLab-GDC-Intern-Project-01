@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icon16x16.png-2ef7d3fec2652094e8f16c90bbb345f8.stex"
+path="res://.import/actor_walk.png-f101bb9e2a6ae88abe5646496e497768.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/icon16x16.png"
-dest_files=[ "res://.import/icon16x16.png-2ef7d3fec2652094e8f16c90bbb345f8.stex" ]
+source_file="res://Assets/Actor/Player/Walk/actor_walk.png"
+dest_files=[ "res://.import/actor_walk.png-f101bb9e2a6ae88abe5646496e497768.stex" ]
 
 [params]
 
