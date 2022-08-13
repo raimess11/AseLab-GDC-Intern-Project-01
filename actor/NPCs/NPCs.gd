@@ -3,6 +3,7 @@ extends KinematicBody2D
 onready var interaction = $Interaction
 onready var questionMark = $QuestionMark
 onready var dialougeController = $DialougeController
+onready var animationPlayer = $AnimationPlayer
 
 var active = false setget set_active
 var questionMarkActive = false setget set_questionMarkActive
@@ -14,6 +15,7 @@ export var interaction_texture : Texture = preload("res://.import/icons8-hand-16
 
 func _ready():
 	$Sprite.frame = 0
+	animationPlayer.play("Idle")
 
 func set_questionMarkActive(value):
 	questionMarkActive = value
