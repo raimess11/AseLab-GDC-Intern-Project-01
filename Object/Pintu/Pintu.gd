@@ -24,3 +24,5 @@ func interaction_interact(interactionComponentParent : Node) -> void :
 		$AnimationPlayer.play_backwards("open")
 		yield($AnimationPlayer,"animation_finished")
 		status = false
+		
+	
