@@ -437,8 +437,12 @@ margin_right = 97.0
 margin_bottom = -39.0
 interaction_component_nodepath = NodePath("../Sprite/Interaction")
 
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="area_entered" from="Sprite/Interaction" to="Sprite/Interaction" method="_on_Interaction_area_entered"]
 [connection signal="area_exited" from="Sprite/Interaction" to="Sprite/Interaction" method="_on_Interaction_area_exited"]
 [connection signal="body_entered" from="Sprite/Interaction" to="Sprite/Interaction" method="_on_Interaction_body_entered"]
 [connection signal="body_exited" from="Sprite/Interaction" to="Sprite/Interaction" method="_on_Interaction_body_exited"]
 [connection signal="on_interactable_changed" from="Sprite/Interaction" to="Sprite/Interaction" method="_on_Interaction_on_interactable_changed"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
