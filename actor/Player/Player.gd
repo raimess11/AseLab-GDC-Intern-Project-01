@@ -11,6 +11,15 @@ onready var animationState = animationTree.get("parameters/playback")
 
 func _ready():
 	pass
+var DASH = 50
+var dash_direction = -1
+var DASH_SPEED = 1.5 
+var is_cooldown = false
+
+onready var timer = $Timer
+
+
+
 
 func _physics_process(delta):
 	
@@ -18,6 +27,21 @@ func _physics_process(delta):
 	input_vector.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	input_vector.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 	input_vector = input_vector.normalized()
+	
+	if Input.get_action_strength("ui_right") : 
+		dash_direction = 1
+	elif Input.get_action_strength("ui_left") : 
+		dash_direction = -1
+	elif Input.get_action_strength("ui_up"):
+		dash_direction = -1
+	elif Input.get_action_strength("ui_down"):
+		dash_direction = 1
+	
+	
+	
+	
+	
+
 	
 	if input_vector != Vector2.ZERO:
 		#animation
@@ -31,7 +55,31 @@ func _physics_process(delta):
 		animationState.travel("Idle")
 		velocity = velocity.move_toward(Vector2.ZERO,friction*delta)
 		
+	if is_cooldown == false && Input.is_action_just_pressed("Dash") :
 		
+		if Input.is_action_pressed("ui_down")|| Input.is_action_pressed("ui_up"):
+			velocity.y = DASH * dash_direction * DASH_SPEED
+			is_cooldown = true
+			timer.start(0)
 		
+		if Input.is_action_pressed("ui_right") || Input.is_action_pressed("ui_left"):
+			velocity.x = DASH * dash_direction * DASH_SPEED
+			is_cooldown = true
+			timer.start(0)
+
+		if Input.is_action_pressed("ui_down") && Input.is_action_pressed("ui_left"):
+			velocity.y = DASH * 1/2 * sqrt(2) * DASH_SPEED
+			velocity.x = DASH * -1/2 * sqrt(2)* DASH_SPEED
+			is_cooldown = true
+			timer.start(0)
+		if Input.is_action_pressed("ui_up") && Input.is_action_pressed("ui_right"):
+			velocity.y = DASH * -1/2 * sqrt(2)* DASH_SPEED
+			velocity.x = DASH * 1/2 * sqrt(2) * DASH_SPEED
+			is_cooldown = true
+			timer.start(0)
+
 	
 	move_and_collide(velocity)
+
+func _on_Timer_timeout():
+	is_cooldown = false
