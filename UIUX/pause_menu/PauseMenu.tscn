@@ -1,0 +1,142 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://UIUX/pause_menu/PauseMenu.gd" type="Script" id=1]
+[ext_resource path="res://UIUX/Asset/grunge brush red.png" type="Texture" id=2]
+[ext_resource path="res://UIUX/Asset/vecteezy_abstract-palstel-stain-isolated-on-white-background_ [Converted]-01.png" type="Texture" id=3]
+[ext_resource path="res://UIUX/Asset/TheLastShurikenRegular-GOw5a.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://UIUX/Asset/HorobiRegular-VGOlz.ttf" type="DynamicFontData" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 50
+extra_spacing_top = -8
+extra_spacing_bottom = -4
+extra_spacing_char = 2
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 18
+extra_spacing_top = 9
+extra_spacing_bottom = 2
+extra_spacing_char = 2
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 18
+extra_spacing_top = 9
+extra_spacing_bottom = 2
+extra_spacing_char = 2
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 18
+extra_spacing_top = 9
+extra_spacing_bottom = 2
+extra_spacing_char = 2
+font_data = ExtResource( 4 )
+
+[node name="Pause Menu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -40.0
+margin_bottom = -40.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="VecteezyAbstract-palstel-stain-isolated-on-white-background[Converted]-01" type="Sprite" parent="."]
+position = Vector2( 94.7503, 45.8878 )
+scale = Vector2( 1.76939, 1.71337 )
+texture = ExtResource( 3 )
+
+[node name="GrungeBrushRed" type="Sprite" parent="."]
+position = Vector2( 92.5683, 11.4038 )
+rotation = 0.0610865
+scale = Vector2( 0.173412, 0.0573746 )
+texture = ExtResource( 2 )
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -14.0
+margin_top = -17.0
+margin_right = -14.0
+margin_bottom = -17.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+margin_left = 406.0
+margin_top = 238.0
+margin_right = 617.0
+margin_bottom = 361.0
+custom_constants/separation = 10
+
+[node name="Paused" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
+margin_right = 211.0
+margin_bottom = 49.0
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/Paused"]
+margin_right = 211.0
+margin_bottom = 49.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 1 )
+text = " PAUSED"
+
+[node name="Selection" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
+margin_top = 59.0
+margin_right = 211.0
+margin_bottom = 123.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/Selection"]
+margin_left = 34.0
+margin_right = 177.0
+margin_bottom = 64.0
+
+[node name="CenterContainer" type="CenterContainer" parent="CenterContainer/VBoxContainer/Selection/VBoxContainer"]
+margin_right = 143.0
+margin_bottom = 30.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/Selection/VBoxContainer/CenterContainer"]
+margin_left = 17.0
+margin_right = 125.0
+margin_bottom = 30.0
+
+[node name="Selector" type="Label" parent="CenterContainer/VBoxContainer/Selection/VBoxContainer/CenterContainer/HBoxContainer"]
+margin_right = 9.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 9, 0 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+text = ">"
+
+[node name="Resume" type="Label" parent="CenterContainer/VBoxContainer/Selection/VBoxContainer/CenterContainer/HBoxContainer"]
+margin_left = 13.0
+margin_right = 108.0
+margin_bottom = 30.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Resume"
+
+[node name="CenterContainer2" type="CenterContainer" parent="CenterContainer/VBoxContainer/Selection/VBoxContainer"]
+margin_top = 34.0
+margin_right = 143.0
+margin_bottom = 64.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/Selection/VBoxContainer/CenterContainer2"]
+margin_right = 143.0
+margin_bottom = 30.0
+
+[node name="Selector" type="Label" parent="CenterContainer/VBoxContainer/Selection/VBoxContainer/CenterContainer2/HBoxContainer"]
+margin_right = 9.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 9, 0 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+text = ">"
+
+[node name="Main Menu" type="Label" parent="CenterContainer/VBoxContainer/Selection/VBoxContainer/CenterContainer2/HBoxContainer"]
+margin_left = 13.0
+margin_right = 143.0
+margin_bottom = 30.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 4 )
+text = "Main Menu"
