@@ -1,7 +1,6 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://RPG HeartBeast rsc/Enemies/Bat.png" type="Texture" id=1]
-[ext_resource path="res://actor/NPCs/QuestionMark.png" type="Texture" id=2]
 [ext_resource path="res://actor/NPCs/NPCs.gd" type="Script" id=3]
 [ext_resource path="res://actor/NPCs/DialougeController.gd" type="Script" id=4]
 [ext_resource path="res://actor/NPCs/SpeechBubble.tscn" type="PackedScene" id=5]
@@ -61,12 +60,6 @@ shape = SubResource( 2 )
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
 hframes = 5
-
-[node name="QuestionMark" type="Sprite" parent="."]
-visible = false
-position = Vector2( -2.84217e-14, -83 )
-scale = Vector2( 0.0566406, 0.0795899 )
-texture = ExtResource( 2 )
 
 [node name="DialougeController" type="Node2D" parent="."]
 script = ExtResource( 4 )

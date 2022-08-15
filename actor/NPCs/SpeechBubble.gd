@@ -51,8 +51,8 @@ func showLine(dialogLine, lineNum):
 	#animation
 	tween.remove_all()
 	tween.interpolate_property(anchor, "position", Vector2(0,2), Vector2(0,0), 0.2)
+	tween.interpolate_property(container, "modulate", Color(1,1,1,0), Color(1,1,1,1), 0.2)
 	tween.start()
-	animationPlayer.play("containerFadeIn")
 	yield(tween,"tween_all_completed")
 	while dialogText.visible_characters < len(dialogText.text):
 		dialogText.visible_characters += 1
@@ -60,15 +60,12 @@ func showLine(dialogLine, lineNum):
 		yield(timer,"timeout")
 	get_parent().isPlayingChat = false
 	
-	
-
-func _input(event):
-	if get_parent().isPlayingChat and Input.is_action_just_pressed("interact"):
-		tween.remove_all()
-		tween.interpolate_property(anchor, "position", Vector2(0,2), Vector2(0,0), 0)
-		tween.start()
-		animationPlayer.seek(0.2, true)
-		dialogText.visible_characters = len(dialogText.text)
+func skipSpeechBubble():
+	tween.remove_all()
+	tween.interpolate_property(anchor, "position", Vector2(0,2), Vector2(0,0), 0)
+	tween.interpolate_property(container, "modulate", Color(1,1,1,0), Color(1,1,1,1), 0)
+	tween.start()
+	dialogText.visible_characters = len(dialogText.text)
 
 
 
