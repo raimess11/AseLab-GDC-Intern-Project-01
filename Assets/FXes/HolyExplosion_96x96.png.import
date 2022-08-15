@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Bat.png-b9611b81dde5de93f23f26efdc05d35f.stex"
+path="res://.import/HolyExplosion_96x96.png-214038e01467ee3cabf07967d751890f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://RPG HeartBeast rsc/Enemies/Bat.png"
-dest_files=[ "res://.import/Bat.png-b9611b81dde5de93f23f26efdc05d35f.stex" ]
+source_file="res://Assets/FXes/HolyExplosion_96x96.png"
+dest_files=[ "res://.import/HolyExplosion_96x96.png-214038e01467ee3cabf07967d751890f.stex" ]
 
 [params]
 

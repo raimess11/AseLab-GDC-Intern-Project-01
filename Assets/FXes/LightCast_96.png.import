@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Bat.png-b9611b81dde5de93f23f26efdc05d35f.stex"
+path="res://.import/LightCast_96.png-b2789eed25d2330392b90e62aea27216.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://RPG HeartBeast rsc/Enemies/Bat.png"
-dest_files=[ "res://.import/Bat.png-b9611b81dde5de93f23f26efdc05d35f.stex" ]
+source_file="res://Assets/FXes/LightCast_96.png"
+dest_files=[ "res://.import/LightCast_96.png-b2789eed25d2330392b90e62aea27216.stex" ]
 
 [params]
 

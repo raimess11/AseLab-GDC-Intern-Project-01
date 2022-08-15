@@ -6,6 +6,7 @@
 [ext_resource path="res://actor/Player/InteractionUI.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CapsuleShape2D" id=1]
+height = 18.0
 
 [sub_resource type="CapsuleShape2D" id=5]
 radius = 24.0
@@ -361,8 +362,6 @@ position = Vector2( 42, 25 )
 script = ExtResource( 2 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-position = Vector2( 1, 15 )
-rotation = -1.5708
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
