@@ -53,6 +53,11 @@ z_index = 1
 shape = SubResource( 1 )
 
 [node name="Interaction" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 0
+__meta__ = {
+"_editor_description_": "collision layer 4 untuk interaksi"
+}
 
 [node name="box" type="CollisionShape2D" parent="Interaction"]
 shape = SubResource( 2 )
@@ -75,5 +80,4 @@ dialogPath = "res://actor/NPCs/contoh/contoh.json"
 anims/Idle = SubResource( 3 )
 anims/RESET = SubResource( 4 )
 
-[connection signal="body_entered" from="Interaction" to="." method="_on_Interaction_body_entered"]
-[connection signal="body_exited" from="Interaction" to="." method="_on_Interaction_body_exited"]
+[connection signal="area_exited" from="Interaction" to="." method="_on_Interaction_area_exited"]

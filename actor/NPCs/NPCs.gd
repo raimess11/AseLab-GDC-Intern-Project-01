@@ -18,16 +18,7 @@ func set_active(value):
 func _ready():
 	$Sprite.frame = 0
 	animationPlayer.play("Idle")
-
-
-func _on_Interaction_body_entered(body):
-	if body.name == "Player":
-		self.active = true
-
-
-func _on_Interaction_body_exited(body):
-	if body.name == "Player":
-		self.active = false
+	
 
 #load texture
 func interaction_get_texture() -> Texture:
@@ -46,7 +37,15 @@ func interaction_interact(interactionComponentParent : Node) -> void :
 	if dialougeController.isPlaying:
 		dialougeController.dialougeSkip()
 	else:
+		dialougeController.visible = true
 		dialougeController.dialougeProcess()
 	print("SPEAK SUCCESS")
 	x += 1
 	print(x)
+
+
+func _on_Interaction_area_exited(area):
+	dialougeController.dialougeSkip()
+	$DialougeController/ForTrigger.play("RESET")
+	dialougeController.visible = false
+	dialougeController.lineNum = 0
