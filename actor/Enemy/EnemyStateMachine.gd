@@ -111,7 +111,7 @@ func _on_BulletTimer_timeout():
 	yield(warning_ind,"animation_finished")
 	$indicator/Warning.hide()
 	#timer kalau perlu
-	yield(get_tree().create_timer(0.3), "timeout")
+	yield(get_tree().create_timer(0.6), "timeout")
 	#hal yg sm dengan yg atas
 	attack_ind.play("attack")
 	$indicator/Attack.show()
