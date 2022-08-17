@@ -7,7 +7,7 @@
 [sub_resource type="Animation" id=3]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("Anchor/Container:show_behind_parent")
+tracks/0/path = NodePath("Anchor/Chat/Container:show_behind_parent")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -19,7 +19,7 @@ tracks/0/keys = {
 "values": [ true ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Anchor/Container:self_modulate")
+tracks/1/path = NodePath("Anchor/Chat/Container:self_modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -31,7 +31,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Anchor/Container:modulate")
+tracks/2/path = NodePath("Anchor/Chat/Container:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -45,21 +45,9 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id=2]
 resource_name = "containerFadeIn"
-length = 0.201
-tracks/0/type = "value"
-tracks/0/path = NodePath("Anchor/Container:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
+length = 0.2
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=4]
 font_data = ExtResource( 2 )
 
 [node name="SpeechBubble" type="Node2D"]
@@ -75,16 +63,19 @@ anims/containerFadeIn = SubResource( 2 )
 
 [node name="Anchor" type="Node2D" parent="."]
 
-[node name="Chat" type="RichTextLabel" parent="Anchor"]
-margin_top = -8.0
-margin_bottom = -8.0
-custom_fonts/normal_font = SubResource( 1 )
-scroll_active = false
+[node name="Chat" type="Label" parent="Anchor"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -14.0
+grow_vertical = 0
+custom_fonts/font = SubResource( 4 )
+align = 1
+autowrap = true
 
-[node name="Container" type="NinePatchRect" parent="Anchor"]
+[node name="Container" type="NinePatchRect" parent="Anchor/Chat"]
 show_behind_parent = true
-margin_top = -11.0
-margin_right = 15.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 texture = ExtResource( 1 )
 patch_margin_left = 5
 patch_margin_top = 4
