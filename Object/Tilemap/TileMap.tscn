@@ -32,5 +32,5 @@ tile_set = SubResource( 1 )
 cell_size = Vector2( 16, 16 )
 format = 1
 __meta__ = {
-"_editor_description_": "setiap kali menggunakan / meninstansiasi scene / tilemap ini, tolong bikin tilesetnya jadi unique"
+"_editor_description_": "kalo mau mengganti texture yang ada di tileset, select 'make unique' dulu di tileset"
 }
