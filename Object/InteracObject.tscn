@@ -4,7 +4,7 @@
 [ext_resource path="res://Object/InteracObject.gd" type="Script" id=2]
 
 [sub_resource type="CircleShape2D" id=11]
-radius = 29.2746
+radius = 38.0526
 
 [sub_resource type="CapsuleShape2D" id=12]
 radius = 28.0
