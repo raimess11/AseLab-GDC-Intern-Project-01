@@ -4,7 +4,6 @@
 [ext_resource path="res://actor/Enemy/Enemy.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Object/InteracObject.tscn" type="PackedScene" id=3]
 [ext_resource path="res://actor/Player/Player.tscn" type="PackedScene" id=4]
-
 [ext_resource path="res://Object/Tilemap/TileMap.tscn" type="PackedScene" id=5]
 [ext_resource path="res://RPG HeartBeast rsc/World/DirtTileset.png" type="Texture" id=6]
 
@@ -35,6 +34,12 @@
 
 [node name="World" type="Node2D"]
 
+[node name="Player" parent="." instance=ExtResource( 4 )]
+position = Vector2( 2, 0 )
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+current = true
+
 [node name="Enemy" parent="." instance=ExtResource( 2 )]
 position = Vector2( 230, 65 )
 scale = Vector2( 0.996517, 1 )
@@ -43,7 +48,6 @@ scale = Vector2( 0.996517, 1 )
 
 [node name="NPCs" parent="." instance=ExtResource( 1 )]
 position = Vector2( -203, 10 )
-
 
 [node name="Dirt" parent="." instance=ExtResource( 5 )]
 z_index = -2

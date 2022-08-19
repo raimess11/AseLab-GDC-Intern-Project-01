@@ -1,5 +1,11 @@
 extends MarginContainer
 
+const first_scene = preload("res://World.tscn")
+#nanti kalo udah ada levelnya salah satu dari first atatu second diubah
+#jadi nanti di main menu kalo klik start sama tutorial scenenya beda
+#sementara sama dulu ke World.tscn
+const second_scene = preload("res://World.tscn")
+
 onready var selector_one = $CenterContainer/VBoxContainer/Selection/VBoxContainer/CenterContainer/HBoxContainer/Selector
 onready var selector_two = $CenterContainer/VBoxContainer/Selection/VBoxContainer/CenterContainer2/HBoxContainer/Selector
 onready var selector_three = $CenterContainer/VBoxContainer/Selection/VBoxContainer/CenterContainer3/HBoxContainer/Selector
@@ -18,16 +24,13 @@ func _process(delta):
 		set_current_selection(current_selection)
 	elif Input.is_action_just_pressed("ui_accept"):
 		handle_selection(current_selection)
-
-#nanti kalo udah ada levelnya get_tree().change_scene("res://World.tscn") diubah
-#ke scene levelnya jadi nanti di main menu kalo klik start sama tutorial scenenya beda
-#sementara sama dulu ke World.tscn
+		
 func handle_selection(_current_selection):
 	if _current_selection == 0:
-		get_tree().change_scene("res://World.tscn")
+		get_parent().add_child(first_scene.instance())
 		queue_free()
 	elif _current_selection == 1:
-		get_tree().change_scene("res://World.tscn")
+		get_parent().add_child(second_scene.instance())
 		queue_free()
 	elif _current_selection == 2:
 		get_tree().quit()
