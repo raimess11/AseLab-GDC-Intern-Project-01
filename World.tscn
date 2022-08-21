@@ -4,7 +4,6 @@
 [ext_resource path="res://actor/Enemy/Enemy.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Object/InteracObject.tscn" type="PackedScene" id=3]
 [ext_resource path="res://actor/Player/Player.tscn" type="PackedScene" id=4]
-
 [ext_resource path="res://Object/Tilemap/TileMap.tscn" type="PackedScene" id=5]
 [ext_resource path="res://RPG HeartBeast rsc/World/DirtTileset.png" type="Texture" id=6]
 
@@ -43,7 +42,7 @@ scale = Vector2( 0.996517, 1 )
 
 [node name="NPCs" parent="." instance=ExtResource( 1 )]
 position = Vector2( -203, 10 )
-
+interaction_texture = null
 
 [node name="Dirt" parent="." instance=ExtResource( 5 )]
 z_index = -2
@@ -52,3 +51,6 @@ tile_data = PoolIntArray( -393226, 0, 0, -393225, 0, 1, -393224, 0, 1, -393223, 
 __meta__ = {
 "_editor_description_": ""
 }
+
+[node name="Player" parent="." instance=ExtResource( 4 )]
+position = Vector2( 158, 165 )
