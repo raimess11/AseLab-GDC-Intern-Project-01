@@ -43,6 +43,8 @@ func _ready():
 	state_enemy = STATE.IDLE 
 	update_target_position()
 	$Timer.one_shot = true
+	if not has_gun :
+		$Gun.queue_free()
 
 #Mengubah posisi enemy secara random saat diluar jangkauan target
 func update_target_position():
@@ -71,14 +73,6 @@ func accelerate(acceleration_vector):
 func enemy_idle():
 	$Timer.start(rand_range(0,3))
 	
-#Aksi IDLE
-func _ready():
-	state_enemy = STATE.IDLE # Replace with function body.
-	update_target_position()
-	$Timer.one_shot = true
-	if not has_gun :
-		$Gun.queue_free()
-
 #Aksi enemy chasing player jika didalam jangkauan
 func _on_Area2D_body_entered(body): 
 	if "Player" in body.name:
