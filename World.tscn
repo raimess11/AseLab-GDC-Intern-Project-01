@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://actor/NPCs/NPCs.tscn" type="PackedScene" id=1]
 [ext_resource path="res://actor/Enemy/Enemy.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://actor/Player/Player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Object/Tilemap/TileMap.tscn" type="PackedScene" id=5]
 [ext_resource path="res://RPG HeartBeast rsc/World/DirtTileset.png" type="Texture" id=6]
+[ext_resource path="res://hurt and hit box/Enemy Test.tscn" type="PackedScene" id=7]
 
 [sub_resource type="TileSet" id=1]
 0/name = "DirtTileset.png 0"
@@ -35,7 +36,7 @@
 [node name="World" type="Node2D"]
 
 [node name="Enemy" parent="." instance=ExtResource( 2 )]
-position = Vector2( 230, 65 )
+position = Vector2( 230, 75 )
 scale = Vector2( 0.996517, 1 )
 
 [node name="InteracObject" parent="." instance=ExtResource( 3 )]
@@ -52,5 +53,20 @@ __meta__ = {
 "_editor_description_": ""
 }
 
+[node name="Node2D2" parent="." instance=ExtResource( 7 )]
+position = Vector2( 420, 379 )
+
+[node name="Node2D3" parent="." instance=ExtResource( 7 )]
+position = Vector2( 422, 207 )
+
+[node name="Node2D4" parent="." instance=ExtResource( 7 )]
+position = Vector2( 516, 283 )
+
+[node name="Node2D" parent="." instance=ExtResource( 7 )]
+position = Vector2( 293, 287 )
+
 [node name="Player" parent="." instance=ExtResource( 4 )]
 position = Vector2( 158, 165 )
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+rotating = true
