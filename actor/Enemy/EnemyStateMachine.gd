@@ -110,3 +110,8 @@ func _physics_process(delta):
 				state_enemy = STATE.IDLE
 				enemy_idle()
 	velocity = move_and_slide(velocity, Vector2.UP)
+
+
+func _on_Node2D_area_entered(area):
+	queue_free()
+	
