@@ -25,6 +25,10 @@ var velocity = Vector2.ZERO
 #Asumsi enemy belum ketemu player
 var player = null
 
+#nambah ini biar kalo enemynya sama, tp pengen beberapa ga ada pistol
+#bisa tinggal di uncheck di editor
+export var has_gun = true
+
 #Variabel untuk posisi awal 
 #Bernilai null
 onready var start_position = global_position
@@ -39,6 +43,8 @@ func _ready():
 	state_enemy = STATE.IDLE 
 	update_target_position()
 	$Timer.one_shot = true
+	if not has_gun :
+		$Gun.queue_free()
 
 #Mengubah posisi enemy secara random saat diluar jangkauan target
 func update_target_position():
@@ -66,7 +72,7 @@ func accelerate(acceleration_vector):
 #Fungsi untuk enemy berpikir memilih posisi secara random
 func enemy_idle():
 	$Timer.start(rand_range(0,3))
-
+	
 #Aksi enemy chasing player jika didalam jangkauan
 func _on_Area2D_body_entered(body): 
 	if "Player" in body.name:

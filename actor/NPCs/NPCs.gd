@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 onready var interaction = $Interaction
-onready var questionMark = $QuestionMark
+#onready var questionMark = $QuestionMark
 onready var dialougeController = $DialougeController
 onready var animationPlayer = $AnimationPlayer
 
