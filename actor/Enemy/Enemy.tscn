@@ -16,7 +16,7 @@ radius = 16.0
 radius = 32.0
 
 [sub_resource type="CapsuleShape2D" id=11]
-radius = 217.0
+radius = 197.0
 height = 0.0
 
 [node name="Enemy" type="KinematicBody2D"]
