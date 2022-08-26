@@ -7,6 +7,12 @@ enum STATE {
 	CHASE
 }
 
+#Indeks posisi
+var indeksPost = 0
+
+#Titik posisi musuh saat wandering
+export var posisiWander = [Vector2(100,100), Vector2(100, -50), Vector2(30, 30)]
+
 #Atur kecepatan enemy
 var run_speed = 50
 
@@ -42,10 +48,15 @@ func _ready():
 
 #Mengubah posisi enemy secara random saat diluar jangkauan target
 func update_target_position():
-	#Mengatur jarak enemy saat wander 
-	var target_vector = Vector2(rand_range(-32, 32), rand_range(-32, 32))
-	#Update posisi
+	#Inisialisasi posisi awal
+	var target_vector = posisiWander[indeksPost]
+	#update posisi
 	target_position = start_position + target_vector
+	#Untuk berhenti pada jarak tertentu
+	if is_at_target_position():
+		indeksPost += 1
+		if indeksPost > 2:
+			indeksPost = 0 
 
 #Mengatur enemy untuk berhenti pada jarak tertentu
 func is_at_target_position(): 
