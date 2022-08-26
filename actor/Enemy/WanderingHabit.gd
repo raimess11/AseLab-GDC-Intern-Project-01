@@ -11,10 +11,10 @@ enum STATE {
 var indeksPost = 0
 
 #Titik posisi musuh saat wandering
-export var posisiWander = [Vector2(100,100), Vector2(100, -50), Vector2(30, 30)]
+var posisiWander = [Vector2(100,100), Vector2(100, -50), Vector2(30, 30)]
 
 #Atur kecepatan enemy
-var run_speed = 50
+var run_speed = 100
 
 #Variabel untuk kondisi state enemy
 var state_enemy
@@ -31,10 +31,6 @@ var velocity = Vector2.ZERO
 #Asumsi enemy belum ketemu player
 var player = null
 
-#nambah ini biar kalo enemynya sama, tp pengen beberapa ga ada pistol
-#bisa tinggal di uncheck di editor
-export var has_gun = true
-
 #Variabel untuk posisi awal 
 #Bernilai null
 onready var start_position = global_position
@@ -49,8 +45,6 @@ func _ready():
 	state_enemy = STATE.IDLE 
 	update_target_position()
 	$Timer.one_shot = true
-	if not has_gun :
-		$Gun.queue_free()
 
 #Mengubah posisi enemy secara random saat diluar jangkauan target
 func update_target_position():
@@ -61,7 +55,7 @@ func update_target_position():
 	#Untuk berhenti pada jarak tertentu
 	if is_at_target_position():
 		indeksPost += 1
-		if indeksPost > posisiWander.size()-1:
+		if indeksPost > 2:
 			indeksPost = 0 
 
 #Mengatur enemy untuk berhenti pada jarak tertentu
@@ -83,7 +77,7 @@ func accelerate(acceleration_vector):
 #Fungsi untuk enemy berpikir memilih posisi secara random
 func enemy_idle():
 	$Timer.start(rand_range(0,3))
-	
+
 #Aksi enemy chasing player jika didalam jangkauan
 func _on_Area2D_body_entered(body): 
 	if "Player" in body.name:
