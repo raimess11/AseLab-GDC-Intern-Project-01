@@ -55,7 +55,7 @@ func update_target_position():
 	#Untuk berhenti pada jarak tertentu
 	if is_at_target_position():
 		indeksPost += 1
-		if indeksPost > 2:
+		if indeksPost > posisiWander.size()-1:
 			indeksPost = 0 
 
 #Mengatur enemy untuk berhenti pada jarak tertentu
