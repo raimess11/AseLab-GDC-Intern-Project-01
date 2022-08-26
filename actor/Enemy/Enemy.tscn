@@ -70,12 +70,13 @@ flip_h = true
 script = ExtResource( 3 )
 
 [node name="Muzzle" type="Position2D" parent="Gun"]
-position = Vector2( 34, -9 )
+position = Vector2( 35, -3 )
 
 [node name="RayCast2D" type="RayCast2D" parent="Gun"]
 position = Vector2( 35, -3 )
 enabled = true
 cast_to = Vector2( 200, 0 )
+collision_mask = 2
 script = ExtResource( 5 )
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
