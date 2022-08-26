@@ -22,7 +22,7 @@ func _physics_process(delta):
 	if (global_position.distance_to(player.global_position) < 350) :
 		#suruh pistol liat player
 		look_at(player.global_position)
-		if (can_fire and $RayCast2D.get_collider() is Player) :
+		if (can_fire and $RayCast2D._collider_is_player()) :
 			#kalo raycast hit ke player, tembak
 			var bullet_instance = bullet.instance()
 			bullet_instance.rotation = rotation + rand_range(-0.1, 0.1)
