@@ -17,20 +17,24 @@ onready var health = max_health setget _set_health
 onready var animationTree = $AnimationTree
 onready var animationState = animationTree.get("parameters/playback")
 onready var timer = $Timer
-
-func _ready():
-	animationTree.active = true
+onready var sprite_attack = $Sprite2
+onready var sprite_walk = $Sprite
 
 var DASH = 50
 var dash_direction = -1
 var DASH_SPEED = 1.5 
 var is_cooldown = false
 var state = MOVE
+onready var killArea = $Position2D/KillArea/CollisionShape2D
 
 enum{
 	MOVE,
 	ATTACK,
 }
+
+func _ready():
+	animationTree.active = true
+	killArea.disabled = true
 
 func _physics_process(delta):
 	match state:
@@ -57,6 +61,8 @@ func move_state(delta):
 	
 	if input_vector != Vector2.ZERO:
 		#animation
+		sprite_attack.visible = false
+		sprite_walk.visible = true
 		animationTree.set("parameters/Idle/blend_position", input_vector)
 		animationTree.set("parameters/Walk/blend_position", input_vector)
 		animationTree.set("parameters/Attack/blend_position", input_vector)
@@ -104,6 +110,8 @@ func move_state(delta):
 func attack_state(delta):
 	velocity = Vector2.ZERO
 	animationState.travel("Attack")
+	sprite_attack.visible = true
+	sprite_walk.visible = false
 
 func attack_finished():
 	state = MOVE
