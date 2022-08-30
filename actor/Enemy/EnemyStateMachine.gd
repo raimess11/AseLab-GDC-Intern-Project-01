@@ -57,8 +57,8 @@ func _ready():
 	yield(get_tree(), "idle_frame") #Untuk meminimalisir bug
 	#Deteksi apakah ada grup player dan navigasi di scene
 	var tree = get_tree()
-	if tree.has_group("Navigasi"):
-		levelNavigation = tree.get_nodes_in_group("Navigasi")[0]
+	if tree.has_group("Grounds"):
+		levelNavigation = tree.get_nodes_in_group("Grounds")[0]
 	if tree.has_group("Player"):
 		player = tree.get_nodes_in_group("Player")[0]
 	state_enemy = STATE.IDLE 
