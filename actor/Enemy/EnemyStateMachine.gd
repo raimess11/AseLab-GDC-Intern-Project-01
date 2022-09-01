@@ -38,11 +38,14 @@ var levelNavigation: Navigation2D = null
 #Variabel apakah enemy ngeliat playernya
 var player_spotted: bool = false
 
+
 #nambah ini biar kalo enemynya sama, tp pengen beberapa ga ada pistol
 #bisa tinggal di uncheck di editor
 export var has_gun = true
 
-onready var los = $LineOfSight
+onready var fov = $Sprite/Area2D
+
+onready var los = $Sprite/Area2D/LineOfSight
 #Variabel untuk posisi awal 
 #Bernilai null
 onready var start_position = global_position
@@ -51,7 +54,7 @@ onready var start_position = global_position
 #Bernilai null
 #Digunakan pada state wander
 onready var target_position = global_position
-
+onready var last_position = global_position
 #Aksi enemy idling
 func _ready():
 	yield(get_tree(), "idle_frame") #Untuk meminimalisir bug
@@ -110,13 +113,20 @@ func _on_Area2D_body_entered(body):
 func _on_Area2D_body_exited(body): 
 	if "Player" in body.name:
 		player = null
-		state_enemy = STATE.WANDER
+		#state_enemy = STATE.WANDER
 		print("keluar")
 
 #Melakukan proses enemy
 func _physics_process(delta):
+	$Line2D.global_position = Vector2.ZERO
+	look_direction()
+	var move_distance = run_speed * delta
+	print(last_position)
+	print(path)
+	print(velocity)
+	print(state_enemy)
 	#Untuk Enemy
-	match state_enemy: 
+	match state_enemy:
 		#Lakukan aksi IDLE
 		STATE.IDLE:
 			velocity = Vector2.ZERO
@@ -124,37 +134,57 @@ func _physics_process(delta):
 			if $Timer.is_stopped():
 				state_enemy = STATE.WANDER
 				update_target_position()
-			
 		#Lakukan aksi CHASE
 		STATE.CHASE:
 			if player:
 				los.look_at(player.global_position)
 				check_player_in_detection()
 				if player_spotted:
-					generate_path()
-					navigate()
+					last_position = player.global_position
+					generate_path(last_position)
+			navigate1(move_distance,last_position)
 		#Lakukan aksi WANDER
 		STATE.WANDER:
-			accelerate_to_point(target_position, akselerasi * delta)
+			print(target_position)
+			generate_path(target_position)
+			navigate1(move_distance,target_position)
 			#Transisi Enemy idling
 			if is_at_target_position():
 				state_enemy = STATE.IDLE
 				enemy_idle()
 	velocity = move_and_slide(velocity, Vector2.UP)
+	
 
 #FUNGSI BUAT PATHFINDING
+func navigate1(distance,pos) :
+	var start_point = global_position
+	for i in range(path.size()):
+		var distance_to_next := global_position.distance_to(path[0])
+		if distance <= distance_to_next and distance >= 0.0 :
+			velocity = start_point.direction_to(path[0]) * run_speed
+			break
+		if (pos - global_position).length() < tolerance :
+			velocity = Vector2.ZERO
+			state_enemy = STATE.WANDER
+			break
+		distance -= distance_to_next
+		start_point = path[0]
+		path.remove(0)
+		
+		
 #Fungsi buat jalan sesuai dengan path
 func navigate():
 	if path.size() > 0:
 		velocity = global_position.direction_to(path[1]) * run_speed
-		
 		# If reached the destination, remove this point from path array
 		if global_position == path[0]:
 			path.pop_front()
+	
 
-func generate_path():
-	if levelNavigation != null and player != null:
-		path = levelNavigation.get_simple_path(global_position, player.global_position, false)
+func generate_path(path_to):
+	if levelNavigation != null :
+		path = levelNavigation.get_simple_path(global_position, path_to, false)
+		$Line2D.points = path
 
 #Fungsi buat check visibilitas player oleh enemy
 func check_player_in_detection():
@@ -162,3 +192,18 @@ func check_player_in_detection():
 	if collider:
 		player_spotted = true
 		print("raycast collided")    # Debug purposes
+
+func look_direction() :
+	if velocity.x < 0 and (abs(velocity.y) < abs(velocity.x)):
+		$AnimationPlayer.play("IdleLeft")
+		fov.rotation_degrees = 90
+	if velocity.x > 0 and (abs(velocity.y) < abs(velocity.x)):
+		$AnimationPlayer.play("IdleRight")
+		fov.rotation_degrees = -90
+	if velocity.y > 0 and (abs(velocity.x) < abs(velocity.y)):
+		$AnimationPlayer.play("IdleDown")
+		fov.rotation_degrees = 360
+	if velocity.y < 0 and (abs(velocity.x) < abs(velocity.y)):
+		$AnimationPlayer.play("IdleUp")
+		fov.rotation_degrees = 180
+	
