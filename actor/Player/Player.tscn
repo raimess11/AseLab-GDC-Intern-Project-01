@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=2]
+[gd_scene load_steps=65 format=2]
 
 [ext_resource path="res://Assets/Actor/Player/Walk/actor_walk.png" type="Texture" id=1]
 [ext_resource path="res://actor/Player/Player.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://actor/Player/InteractionUI.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/actor_attack_sheet.png" type="Texture" id=5]
 [ext_resource path="res://hurt and hit box/HitBox.tscn" type="PackedScene" id=6]
+[ext_resource path="res://actor/Player/Dodge.gd" type="Script" id=7]
 
 [sub_resource type="CapsuleShape2D" id=1]
 
@@ -647,6 +648,7 @@ collision_layer = 2
 script = ExtResource( 2 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
+light_mask = 2
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -697,7 +699,7 @@ anims/WalkUp = SubResource( 15 )
 tree_root = SubResource( 2 )
 anim_player = NodePath("../AnimationPlayer")
 parameters/playback = SubResource( 3 )
-parameters/Attack/blend_position = Vector2( -0.998415, 0.00948286 )
+parameters/Attack/blend_position = Vector2( 0, 0 )
 parameters/AttackDash/blend_position = Vector2( 0, 0 )
 parameters/Dash/blend_position = Vector2( 0, 0 )
 parameters/Idle/blend_position = Vector2( 0, 0 )
@@ -749,11 +751,20 @@ rotation = -0.000638038
 scale = Vector2( 1, 0.725484 )
 shape = SubResource( 59 )
 
+[node name="Dodge" type="Node2D" parent="."]
+script = ExtResource( 7 )
+
+[node name="Timer" type="Timer" parent="Dodge"]
+one_shot = true
+
+[node name="Cooldown" type="Timer" parent="Dodge"]
+
 [connection signal="area_entered" from="Sprite/Interaction" to="Sprite/Interaction" method="_on_Interaction_area_entered"]
 [connection signal="area_exited" from="Sprite/Interaction" to="Sprite/Interaction" method="_on_Interaction_area_exited"]
 [connection signal="body_entered" from="Sprite/Interaction" to="Sprite/Interaction" method="_on_Interaction_body_entered"]
 [connection signal="body_exited" from="Sprite/Interaction" to="Sprite/Interaction" method="_on_Interaction_body_exited"]
 [connection signal="on_interactable_changed" from="Sprite/Interaction" to="Sprite/Interaction" method="_on_Interaction_on_interactable_changed"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="Dodge/Timer" to="Dodge" method="_on_Timer_timeout"]
 
 [editable path="Position2D/KillArea"]
