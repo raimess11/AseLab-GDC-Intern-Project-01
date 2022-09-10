@@ -1,6 +1,6 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=55 format=2]
 
-[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Actor/Enemy/enemy_sheet.png" type="Texture" id=1]
 [ext_resource path="res://actor/Enemy/EnemyStateMachine.gd" type="Script" id=2]
 [ext_resource path="res://actor/Enemy/Gun.gd" type="Script" id=3]
 [ext_resource path="res://Assets/outline_gun.png" type="Texture" id=4]
@@ -8,7 +8,493 @@
 
 [sub_resource type="CapsuleShape2D" id=7]
 
+[sub_resource type="Animation" id=15]
+resource_name = "Enemy_Aim_Down"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Mafia:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 10, 11, 12 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"values": [  ]
+}
+
+[sub_resource type="Animation" id=16]
+resource_name = "Enemy_Aim_Left"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Mafia:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 70, 71, 72 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"values": [  ]
+}
+
+[sub_resource type="Animation" id=17]
+resource_name = "Enemy_Aim_Right"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Mafia:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 30, 31, 32 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"values": [  ]
+}
+
+[sub_resource type="Animation" id=18]
+resource_name = "Enemy_Aim_Up"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Mafia:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 50, 51, 52 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"values": [  ]
+}
+
+[sub_resource type="Animation" id=19]
+resource_name = "Enemy_Shoot_Down"
+length = 0.3
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Mafia:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 15, 16, 17 ]
+}
+
+[sub_resource type="Animation" id=20]
+resource_name = "Enemy_Shoot_Left"
+length = 0.3
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Mafia:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 75, 76, 77 ]
+}
+
+[sub_resource type="Animation" id=21]
+resource_name = "Enemy_Shoot_Right"
+length = 0.3
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Mafia:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 35, 36, 37 ]
+}
+
+[sub_resource type="Animation" id=22]
+resource_name = "Enemy_Shoot_Up"
+length = 0.3
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Mafia:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 55, 56, 57 ]
+}
+
+[sub_resource type="Animation" id=13]
+resource_name = "Idle_Down"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Mafia:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4 ]
+}
+
+[sub_resource type="Animation" id=23]
+resource_name = "Idle_Left"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Mafia:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 60, 61, 62, 63, 64 ]
+}
+
+[sub_resource type="Animation" id=24]
+resource_name = "Idle_Right"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Mafia:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 20, 21, 22, 23, 24 ]
+}
+
+[sub_resource type="Animation" id=25]
+resource_name = "Idle_Up"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Mafia:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 40, 41, 42, 43, 44 ]
+}
+
+[sub_resource type="Animation" id=12]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Mafia:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=14]
+resource_name = "Walk_Down"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Mafia:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 5, 6, 7, 8, 9 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"values": [  ]
+}
+
+[sub_resource type="Animation" id=26]
+resource_name = "Walk_Left"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Mafia:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 65, 66, 67, 68, 69 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"values": [  ]
+}
+
+[sub_resource type="Animation" id=27]
+resource_name = "Walk_Right"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Mafia:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 25, 26, 27, 28, 29 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"values": [  ]
+}
+
+[sub_resource type="Animation" id=28]
+resource_name = "Walk_Up"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Mafia:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 45, 46, 47, 48, 49 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"values": [  ]
+}
+
+[sub_resource type="AnimationNodeAnimation" id=29]
+animation = "Enemy_Aim_Left"
+
+[sub_resource type="AnimationNodeAnimation" id=30]
+animation = "Enemy_Aim_Right"
+
+[sub_resource type="AnimationNodeAnimation" id=31]
+animation = "Enemy_Aim_Down"
+
+[sub_resource type="AnimationNodeAnimation" id=32]
+animation = "Enemy_Aim_Up"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=33]
+blend_point_0/node = SubResource( 29 )
+blend_point_0/pos = Vector2( -1, 0 )
+blend_point_1/node = SubResource( 30 )
+blend_point_1/pos = Vector2( 1, 0 )
+blend_point_2/node = SubResource( 31 )
+blend_point_2/pos = Vector2( 0, 1 )
+blend_point_3/node = SubResource( 32 )
+blend_point_3/pos = Vector2( 0, -1 )
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id=34]
+animation = "Idle_Left"
+
+[sub_resource type="AnimationNodeAnimation" id=35]
+animation = "Idle_Right"
+
+[sub_resource type="AnimationNodeAnimation" id=36]
+animation = "Idle_Down"
+
+[sub_resource type="AnimationNodeAnimation" id=37]
+animation = "Idle_Up"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=38]
+blend_point_0/node = SubResource( 34 )
+blend_point_0/pos = Vector2( -1, 0 )
+blend_point_1/node = SubResource( 35 )
+blend_point_1/pos = Vector2( 1, 0 )
+blend_point_2/node = SubResource( 36 )
+blend_point_2/pos = Vector2( 0, 1 )
+blend_point_3/node = SubResource( 37 )
+blend_point_3/pos = Vector2( 0, -1 )
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id=39]
+animation = "Enemy_Shoot_Left"
+
+[sub_resource type="AnimationNodeAnimation" id=40]
+animation = "Enemy_Shoot_Right"
+
+[sub_resource type="AnimationNodeAnimation" id=41]
+animation = "Enemy_Shoot_Down"
+
+[sub_resource type="AnimationNodeAnimation" id=42]
+animation = "Enemy_Shoot_Up"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=43]
+blend_point_0/node = SubResource( 39 )
+blend_point_0/pos = Vector2( -1, 0 )
+blend_point_1/node = SubResource( 40 )
+blend_point_1/pos = Vector2( 1, 0 )
+blend_point_2/node = SubResource( 41 )
+blend_point_2/pos = Vector2( 0, 1 )
+blend_point_3/node = SubResource( 42 )
+blend_point_3/pos = Vector2( 0, -1 )
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id=44]
+animation = "Walk_Left"
+
+[sub_resource type="AnimationNodeAnimation" id=45]
+animation = "Walk_Right"
+
+[sub_resource type="AnimationNodeAnimation" id=46]
+animation = "Walk_Down"
+
+[sub_resource type="AnimationNodeAnimation" id=47]
+animation = "Walk_Up"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=48]
+blend_point_0/node = SubResource( 44 )
+blend_point_0/pos = Vector2( -1, 0 )
+blend_point_1/node = SubResource( 45 )
+blend_point_1/pos = Vector2( 1, 0 )
+blend_point_2/node = SubResource( 46 )
+blend_point_2/pos = Vector2( 0, 1 )
+blend_point_3/node = SubResource( 47 )
+blend_point_3/pos = Vector2( 0, -1 )
+blend_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=49]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=50]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=51]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=52]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=53]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=54]
+
 [sub_resource type="AnimationNodeStateMachine" id=8]
+states/Aim/node = SubResource( 33 )
+states/Aim/position = Vector2( 516, -72.384 )
+states/Idle/node = SubResource( 38 )
+states/Idle/position = Vector2( 216, -174 )
+states/Shoot/node = SubResource( 43 )
+states/Shoot/position = Vector2( 711, -174 )
+states/Walk/node = SubResource( 48 )
+states/Walk/position = Vector2( 494, -237.384 )
+transitions = [ "Idle", "Walk", SubResource( 49 ), "Walk", "Idle", SubResource( 50 ), "Idle", "Aim", SubResource( 51 ), "Aim", "Shoot", SubResource( 52 ), "Aim", "Idle", SubResource( 53 ), "Shoot", "Aim", SubResource( 54 ) ]
+start_node = "Idle"
+graph_offset = Vector2( 0, -279.704 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=9]
 
@@ -25,9 +511,12 @@ height = 0.0
 [node name="Enemy" type="KinematicBody2D"]
 script = ExtResource( 2 )
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Mafia" type="Sprite" parent="."]
 self_modulate = Color( 0.988235, 0.392157, 0.392157, 1 )
 texture = ExtResource( 1 )
+hframes = 5
+vframes = 16
+region_rect = Rect2( 239, 82, 23, 522 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -35,22 +524,44 @@ rotation = -1.5708
 shape = SubResource( 7 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Enemy_Aim_Down = SubResource( 15 )
+anims/Enemy_Aim_Left = SubResource( 16 )
+anims/Enemy_Aim_Right = SubResource( 17 )
+anims/Enemy_Aim_Up = SubResource( 18 )
+anims/Enemy_Shoot_Down = SubResource( 19 )
+anims/Enemy_Shoot_Left = SubResource( 20 )
+anims/Enemy_Shoot_Right = SubResource( 21 )
+anims/Enemy_Shoot_Up = SubResource( 22 )
+anims/Idle_Down = SubResource( 13 )
+anims/Idle_Left = SubResource( 23 )
+anims/Idle_Right = SubResource( 24 )
+anims/Idle_Up = SubResource( 25 )
+anims/RESET = SubResource( 12 )
+anims/Walk_Down = SubResource( 14 )
+anims/Walk_Left = SubResource( 26 )
+anims/Walk_Right = SubResource( 27 )
+anims/Walk_Up = SubResource( 28 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 8 )
 anim_player = NodePath("../AnimationPlayer")
+active = true
 parameters/playback = SubResource( 9 )
+parameters/Aim/blend_position = Vector2( -0.0207973, 0.12069 )
+parameters/Idle/blend_position = Vector2( -0.129983, 0.465517 )
+parameters/Shoot/blend_position = Vector2( 0, 0 )
+parameters/Walk/blend_position = Vector2( -1, -1 )
 
 [node name="HitBox" type="Area2D" parent="."]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+visible = false
 shape = SubResource( 10 )
 
 [node name="AttackArea" type="Area2D" parent="."]
-visible = false
 
 [node name="box" type="CollisionShape2D" parent="AttackArea"]
+visible = false
 modulate = Color( 1, 0, 0, 1 )
 self_modulate = Color( 1, 0, 0, 1 )
 shape = SubResource( 4 )
@@ -58,11 +569,13 @@ shape = SubResource( 4 )
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
 shape = SubResource( 11 )
 
 [node name="Timer" type="Timer" parent="."]
 
 [node name="Gun" type="Sprite" parent="."]
+visible = false
 position = Vector2( -34, 9 )
 texture = ExtResource( 4 )
 offset = Vector2( 30, 0 )
