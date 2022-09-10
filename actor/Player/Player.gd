@@ -9,6 +9,7 @@ var velocity = Vector2.ZERO
 var speed = 50
 var max_speed = 200
 var friction = 30
+var stamina = 100
 
 export var max_health = 100
 
@@ -83,6 +84,7 @@ func move_state(delta):
 	elif Input.get_action_strength("ui_down"):
 		dash_direction = 1
 	
+	staminaa()
 	if is_cooldown == false && Input.is_action_just_pressed("Dash") :
 		
 		if Input.is_action_pressed("ui_down")|| Input.is_action_pressed("ui_up"):
@@ -144,3 +146,12 @@ func _set_health(value) :
 	#debug test, making sure health berubah di output
 	print(health)
 #PS can add anim iframes or red flash damage later on
+
+func staminaa():
+	if stamina < 100:
+		stamina += 1
+	
+	if Input.is_action_just_pressed("Dash") && stamina >0:
+		stamina -= 25
+		print(stamina)
+
