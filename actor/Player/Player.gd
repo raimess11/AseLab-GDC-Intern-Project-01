@@ -154,4 +154,9 @@ func staminaa():
 	if Input.is_action_just_pressed("Dash") && stamina >0:
 		stamina -= 25
 		print(stamina)
+	
+	if stamina < 0:
+		DASH = 0
+	elif stamina > 0 :
+		DASH = 100
 
