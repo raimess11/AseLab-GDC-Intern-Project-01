@@ -84,29 +84,50 @@ func move_state(delta):
 	elif Input.get_action_strength("ui_down"):
 		dash_direction = 1
 	
-	staminaa()
+	
 	if is_cooldown == false && Input.is_action_just_pressed("Dash") :
 		
 		if Input.is_action_pressed("ui_down")|| Input.is_action_pressed("ui_up"):
-			velocity.y = DASH * dash_direction * DASH_SPEED
-			is_cooldown = true
-			timer.start(0)
-		
+			if stamina > 0 :
+				velocity.y = DASH * dash_direction * DASH_SPEED
+				is_cooldown = true
+				timer.start(0)
+				staminaa()
+			else:
+				yield(get_tree().create_timer(3),"timeout")
+				stamina = 100
+				
 		if Input.is_action_pressed("ui_right") || Input.is_action_pressed("ui_left"):
-			velocity.x = DASH * dash_direction * DASH_SPEED
-			is_cooldown = true
-			timer.start(0)
+			if stamina > 0 :
+				velocity.x = DASH * dash_direction * DASH_SPEED
+				is_cooldown = true
+				timer.start(0)
+				staminaa()
+			else:
+				yield(get_tree().create_timer(3),"timeout")
+				stamina = 100
 
 		if Input.is_action_pressed("ui_down") && Input.is_action_pressed("ui_left"):
-			velocity.y = DASH * 1/2 * sqrt(2) * DASH_SPEED
-			velocity.x = DASH * -1/2 * sqrt(2)* DASH_SPEED
-			is_cooldown = true
-			timer.start(0)
+			if stamina > 0:
+				velocity.y = DASH * 1/2 * sqrt(2) * DASH_SPEED
+				velocity.x = DASH * -1/2 * sqrt(2)* DASH_SPEED
+				is_cooldown = true
+				timer.start(0)
+				staminaa()
+			else:
+				yield(get_tree().create_timer(3),"timeout")
+				stamina = 100
+			
 		if Input.is_action_pressed("ui_up") && Input.is_action_pressed("ui_right"):
-			velocity.y = DASH * -1/2 * sqrt(2)* DASH_SPEED
-			velocity.x = DASH * 1/2 * sqrt(2) * DASH_SPEED
-			is_cooldown = true
-			timer.start(0)
+			if stamina > 0:
+				velocity.y = DASH * -1/2 * sqrt(2)* DASH_SPEED
+				velocity.x = DASH * 1/2 * sqrt(2) * DASH_SPEED
+				is_cooldown = true
+				timer.start(0)
+				staminaa()
+			else:
+				yield(get_tree().create_timer(3),"timeout")
+				stamina = 100
 	move_and_collide(velocity)
 
 func attack_state(delta):
@@ -144,19 +165,15 @@ func _set_health(value) :
 			kill()
 			emit_signal("player_killed")
 	#debug test, making sure health berubah di output
-	print(health)
+#	print(health)
 #PS can add anim iframes or red flash damage later on
 
 func staminaa():
-	if stamina < 100:
-		stamina += 1
-	
-	if Input.is_action_just_pressed("Dash") && stamina >0:
-		stamina -= 25
+	if stamina > 0:
+		stamina -= 30
 		print(stamina)
-	
-	if stamina < 0:
-		DASH = 0
-	elif stamina > 0 :
-		DASH = 100
+
+
+
+
 
