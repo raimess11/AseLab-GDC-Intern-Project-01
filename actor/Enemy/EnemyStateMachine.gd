@@ -161,4 +161,3 @@ func check_player_in_detection():
 	var collider = los.get_collider()
 	if collider:
 		player_spotted = true
-		print("raycast collided")    # Debug purposes

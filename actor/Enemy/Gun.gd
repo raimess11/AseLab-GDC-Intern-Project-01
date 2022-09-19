@@ -2,7 +2,7 @@ extends Sprite
 
 var can_fire = true
 var bullet = preload("res://actor/Enemy/EnemyBullet.tscn")
-
+var bullet_instance
 
 enum INDICATION_STATE{
 	black,
@@ -35,6 +35,10 @@ func _ready():
 	position = get_parent().position
 	indicator.hide()
 	timeStart = OS.get_unix_time()
+	connect("yellow",dodge,"yellowTriggered")
+	connect("red",dodge,"redTriggered")
+	connect("black",dodge,"blackTriggered")
+	
 
 
 
@@ -58,29 +62,27 @@ func _physics_process(delta):
 				return
 			else :
 				#kalo raycast hit ke player, tembak
+				bullet_instance = bullet.instance()
 				indicator.show()
-				var bullet_instance = bullet.instance()
 				bullet_instance.rotation = rotation + rand_range(-0.1, 0.1)
 				bullet_instance.global_position = $Muzzle.global_position
 				indicator_player.play("Warning")
-				
 				yield(indicator_player, "animation_finished")
 				indicator_player.play("Attack")
+				indicator_player.playback_speed = 0.5
 				indicationState = INDICATION_STATE.yellow
-				connect("yellow",dodge,"yellowTriggered")
 				emit_signal("yellow", get_parent().name)
 				yield(indicator_player, "animation_finished")
 				bullet_instance.name = "{0}bullet_{1}".format([bulletId, get_parent().name])
 				var bullet_name = bullet_instance.name
 				get_parent().add_child(bullet_instance)
-				get_parent().connect("child_exiting_tree", dodge, "bulletQueueFree")
-				connect("red",dodge,"redTriggered")
+				bullet_instance.connect("tree_exited", dodge, "bulletQueueFree", [bullet_name])
 				emit_signal("red", get_parent().get_node(bullet_name))
 				indicationState = INDICATION_STATE.red
 				can_fire = false
-				yield(get_tree().create_timer(1),"timeout")
+				yield(get_tree().create_timer(2),"timeout")
 				indicationState = INDICATION_STATE.black
-				connect("black",dodge,"blackTriggered")
+				
 				emit_signal("black",get_parent().name,bullet_name)
 				if get_parent().has_node("{0}bullet_{1}".format([bulletId, get_parent().name])):
 					bullet_instance.isUneffectedByDodge = true

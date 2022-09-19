@@ -27,13 +27,9 @@ enum INDICATION_STATE{
 	red
 }
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass
-
 func _process(delta):
 	bulletList = get_tree().get_nodes_in_group("bullets")
+	#jika dodgingFailed maka fitur dodging di pause
 	if dodgingFailed:
 		if enemyDodgingFailed == [] or enemyDodgingFailed[1] == INDICATION_STATE.black:
 			enemyDodgingFailed.clear()
@@ -46,42 +42,52 @@ func _process(delta):
 func addEnemyList(enemyName: String, indicatorState):
 	enemyListWithIndication[enemyName] = indicatorState
 	if !enemyList.has(enemyName):
+		print(enemyList)
 		enemyList.append(enemyName)
 	
 
 #delete enemy pada list, panggil jika enemy tidak aim player lagi
 func deleteEnemyList(enemyName: String):
 	enemyListWithIndication.erase(enemyName)
+	print(enemyList)
 	enemyList.erase(enemyName)
 
+
+#mengatur input
 func _input(event):
 	var x = enemyNeedToBeDodged.size() > 0
-	if Input.is_action_just_pressed("dodge") and x and !dodgingFailed:
-		dodging()
+	if !dodgingFailed:
+		if Input.is_action_just_pressed("dodge") and x:
+			dodging()
 	else:
 		print("failed")
 
+#jika enemy kuning, maka add enemy pada list enemy yang harus didodge
 func yellowTriggered(enemyName):
 	enemyNeedToBeDodged.append(enemyName)
 
+#jika enemy merah, maka add bullet pada list enemy yang harus didodge
 func redTriggered(bullet):
 	listOfBulletNeedToBeDodged[bullet.name.split("_", true)[1]] = bullet
 
+#jika enemy hitam
 func blackTriggered(enemyName, bulletName):
 	if enemyNeedToBeDodged.has(enemyName):
 		enemyNeedToBeDodged.erase(enemyName)
 	if listOfBulletNeedToBeDodged.has(enemyName):
 		listOfBulletNeedToBeDodged.erase(enemyName)
 
-func bulletQueueFree(node):
-	if node.name in bulletList:
-		if enemyNeedToBeDodged.has(node.name):
-			enemyNeedToBeDodged.erase(node.name)
-		if listOfBulletNeedToBeDodged.has(node.name):
-			listOfBulletNeedToBeDodged.erase(node.name)
+#jika bullet hilang, maka bullet dan enemy didelete dari list yang harus didodge
+func bulletQueueFree(bulletName):
+	print("bullet deleted")
+	if enemyNeedToBeDodged.has(bulletName):
+		enemyNeedToBeDodged.erase(bulletName)
+	if listOfBulletNeedToBeDodged.has(bulletName):
+		listOfBulletNeedToBeDodged.erase(bulletName)
 
 func dodging():
 	if !enemyListWithIndication.has(enemyNeedToBeDodged[0]):
+		print("enemy doesn't exist")
 		endChainAttack()
 		return
 	if enemyListWithIndication[enemyNeedToBeDodged[0]] == INDICATION_STATE.yellow:
@@ -124,8 +130,8 @@ func _on_Timer_timeout():
 	endChainAttack()
 
 func beginChainAttack():
-	Engine.time_scale = 0.01
-	timer.wait_time = 1.0 * Engine.time_scale
+	Engine.time_scale = 0.05
+	timer.wait_time = 10.0 * Engine.time_scale
 	timer.start()
 
 func beginCooldown():
