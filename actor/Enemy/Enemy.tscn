@@ -572,6 +572,11 @@ shape = SubResource( 4 )
 visible = false
 shape = SubResource( 11 )
 
+[node name="LineOfSight" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 0, 200 )
+collision_mask = 7
+
 [node name="Timer" type="Timer" parent="."]
 
 [node name="Gun" type="Sprite" parent="."]

@@ -43,10 +43,18 @@ var velocity = Vector2.ZERO setget set_velocity
 #Asumsi enemy belum ketemu player
 var player = null
 
+#Jalan dari enemy ke player
+var path: Array = []
+#Variabel detekti tilemap yang bisa dinavigasi
+var levelNavigation: Navigation2D = null
+#Variabel apakah enemy ngeliat playernya
+var player_spotted: bool = false
+
 #nambah ini biar kalo enemynya sama, tp pengen beberapa ga ada pistol
 #bisa tinggal di uncheck di editor
 export var has_gun = true
 
+onready var los = $LineOfSight
 #Variabel untuk posisi awal 
 #Bernilai null
 onready var start_position = global_position
@@ -63,6 +71,13 @@ func set_velocity(value):
 
 #Aksi enemy idling
 func _ready():
+	yield(get_tree(), "idle_frame") #Untuk meminimalisir bug
+	#Deteksi apakah ada grup player dan navigasi di scene
+	var tree = get_tree()
+	if tree.has_group("Navigasi"):
+		levelNavigation = tree.get_nodes_in_group("Navigasi")[0]
+	if tree.has_group("Player"):
+		player = tree.get_nodes_in_group("Player")[0]
 	state_enemy = STATE.IDLE 
 	update_target_position()
 	$Timer.one_shot = true
@@ -106,13 +121,15 @@ func _on_Area2D_body_entered(body):
 	if "Player" in body.name:
 		player = body
 		state_enemy = STATE.CHASE
-		
+		print("masuk")
+
 
 #Aksi enemy wandering jika player diluar jangkauan
 func _on_Area2D_body_exited(body): 
 	if "Player" in body.name:
 		player = null
 		state_enemy = STATE.WANDER
+		print("keluar")
 
 #Melakukan proses enemy
 func _physics_process(delta):
@@ -130,7 +147,13 @@ func _physics_process(delta):
 			
 		#Lakukan aksi CHASE
 		STATE.CHASE:
+
 			if not (player == null):
+				los.look_at(player.global_position)
+				check_player_in_detection()
+				if player_spotted:
+					generate_path()
+					navigate()
 				animationState.travel("Walk")
 				set_anim_state()
 				#Enemy akan berhenti pada jarak tertentu dan siap mau nembak
@@ -144,6 +167,8 @@ func _physics_process(delta):
 				else:
 					self.velocity = position.direction_to(player.global_position) * run_speed * 100 * delta
 				
+
+			
 		#Lakukan aksi WANDER
 		STATE.WANDER:
 			accelerate_to_point(target_position, akselerasi * delta)
@@ -165,3 +190,26 @@ func set_anim_state():
 #Untuk enemy berhentinya	
 func aim_still():
 	velocity = Vector2.ZERO
+
+
+#FUNGSI BUAT PATHFINDING
+#Fungsi buat jalan sesuai dengan path
+func navigate():
+	if path.size() > 0:
+		velocity = global_position.direction_to(path[1]) * run_speed
+		
+		# If reached the destination, remove this point from path array
+		if global_position == path[0]:
+			path.pop_front()
+
+func generate_path():
+	if levelNavigation != null and player != null:
+		path = levelNavigation.get_simple_path(global_position, player.global_position, false)
+
+#Fungsi buat check visibilitas player oleh enemy
+func check_player_in_detection():
+	var collider = los.get_collider()
+	if collider:
+		player_spotted = true
+		print("raycast collided")    # Debug purposes
+
