@@ -14,7 +14,7 @@ var _state = States.IDLE
 export var posisiWander = [Vector2(100,100), Vector2(100, -50), Vector2(30, 30)]
 var _velocity = Vector2()
 const MASS = 10.0
-const ARRIVE_DISTANCE = 10.0
+const ARRIVE_DISTANCE = 5.0
 var _target_point_world = Vector2()
 var _target_position = Vector2()
 #Atur kecepatan enemy
