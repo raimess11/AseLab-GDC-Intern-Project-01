@@ -6,13 +6,17 @@ enum STATE {
 	WANDER,
 	CHASE
 }
-
+enum States { IDLE, FOLLOW }
 #Indeks posisi
 var indeksPost = 0
-
+var _state = States.IDLE
 #Titik posisi musuh saat wandering
 export var posisiWander = [Vector2(100,100), Vector2(100, -50), Vector2(30, 30)]
-
+var _velocity = Vector2()
+const MASS = 10.0
+const ARRIVE_DISTANCE = 10.0
+var _target_point_world = Vector2()
+var _target_position = Vector2()
 #Atur kecepatan enemy
 var run_speed = 50
 
@@ -32,7 +36,7 @@ var velocity = Vector2.ZERO
 var player = null
 
 #Jalan dari enemy ke player
-var path: Array = []
+var _path: Array = []
 #Variabel detekti tilemap yang bisa dinavigasi
 var levelNavigation: Navigation2D = null
 #Variabel apakah enemy ngeliat playernya
@@ -66,6 +70,7 @@ func _ready():
 	$Timer.one_shot = true
 	if not has_gun :
 		$Gun.queue_free()
+	_change_state(States.IDLE)
 
 #Mengubah posisi enemy secara random saat diluar jangkauan target
 func update_target_position():
@@ -124,41 +129,67 @@ func _physics_process(delta):
 			if $Timer.is_stopped():
 				state_enemy = STATE.WANDER
 				update_target_position()
-			
+
 		#Lakukan aksi CHASE
 		STATE.CHASE:
 			if player:
 				los.look_at(player.global_position)
 				check_player_in_detection()
-				if player_spotted:
-					generate_path()
-					navigate()
+				if _state != States.FOLLOW:
+					return
+				var _arrived_to_next_point = _move_to(_target_point_world)
+				if _arrived_to_next_point:
+					_path.remove(0)
+					if len(_path) == 0:
+						_change_state(States.IDLE)
+						return
+					_target_point_world = _path[0]
+					print(_path)
 		#Lakukan aksi WANDER
-		STATE.WANDER:
-			accelerate_to_point(target_position, akselerasi * delta)
-			#Transisi Enemy idling
-			if is_at_target_position():
-				state_enemy = STATE.IDLE
-				enemy_idle()
+#		STATE.WANDER:
+#			accelerate_to_point(target_position, akselerasi * delta)
+#			#Transisi Enemy idling
+#			if is_at_target_position():
+#				state_enemy = STATE.IDLE
+#				enemy_idle()
 	velocity = move_and_slide(velocity, Vector2.UP)
-
+#func _process(_delta):
+#	if _state != States.FOLLOW:
+#		return
+#	var _arrived_to_next_point = _move_to(_target_point_world)
+#	if _arrived_to_next_point:
+#		_path.remove(0)
+#		if len(_path) == 0:
+#			_change_state(States.IDLE)
+#			return
+#		_target_point_world = _path[0]
+#	print(_path)
 #FUNGSI BUAT PATHFINDING
 #Fungsi buat jalan sesuai dengan path
-func navigate():
-	if path.size() > 0:
-		velocity = global_position.direction_to(path[1]) * run_speed
-		
-		# If reached the destination, remove this point from path array
-		if global_position == path[0]:
-			path.pop_front()
-
-func generate_path():
-	if levelNavigation != null and player != null:
-		path = levelNavigation.get_simple_path(global_position, player.global_position, false)
-
 #Fungsi buat check visibilitas player oleh enemy
 func check_player_in_detection():
 	var collider = los.get_collider()
 	if collider:
 		player_spotted = true
-		print("raycast collided")    # Debug purposes
+		_target_position = player.position
+	_change_state(States.FOLLOW)
+	print("raycast collided")    # Debug purposes
+
+func _move_to(world_position):
+	var desired_velocity = (world_position - position).normalized() * run_speed
+	var steering = desired_velocity - _velocity
+	_velocity += steering / MASS
+	position += _velocity * get_process_delta_time()
+	rotation = _velocity.angle()
+	return position.distance_to(world_position) < ARRIVE_DISTANCE
+
+func _change_state(new_state):
+	if new_state == States.FOLLOW:
+		_path = get_parent().get_node("TileMap").get_astar_path(position, _target_position)
+		if not _path or len(_path) == 1:
+			_change_state(States.IDLE)
+			return
+		# The index 0 is the starting cell.
+		# We don't want the character to move back to it in this example.
+		_target_point_world = _path[1]
+	_state = new_state
