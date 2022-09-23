@@ -352,6 +352,7 @@ outlines = [ PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 ) ]
 1/z_index = 0
 
 [node name="TileMap" type="TileMap"]
+scale = Vector2( 0.8, 0.8 )
 tile_set = SubResource( 46 )
 cell_size = Vector2( 16, 16 )
 bake_navigation = true
