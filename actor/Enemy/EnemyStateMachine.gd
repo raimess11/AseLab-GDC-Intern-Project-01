@@ -6,6 +6,35 @@ enum STATE {
 	CHASE
 }
 
+<<<<<<< Updated upstream
+=======
+#Custom signal
+signal death
+
+#Enemy Stats
+var health = 200
+var health_max = 200
+var health_regeneration = 1
+
+#Variabel buat animasi enemy searah dengan player
+var facing = Vector2.ZERO
+
+#Manggil node animation tree
+onready var animationTree = get_node("AnimationTree")
+
+#Untuk implementasiin animasi
+onready var animationState = animationTree.get("parameters/playback")
+
+#Manggil node player
+onready var target = get_parent().get_node("Player")
+
+#Indeks posisi
+var indeksPost = 0
+
+#Titik posisi musuh saat wandering
+export var posisiWander = [Vector2(100,100), Vector2(100, -50), Vector2(30, 30)]
+
+>>>>>>> Stashed changes
 #Atur kecepatan enemy
 var run_speed = 50
 var state_enemy
@@ -65,7 +94,16 @@ func _physics_process(delta):
 	match state_enemy: 
 		#Lakukan aksi IDLE
 		STATE.IDLE:
+<<<<<<< Updated upstream
 			velocity = Vector2.ZERO
+=======
+			self.velocity = facing
+			animationState.travel("Idle")
+			set_anim_state()
+			# Regenerates health
+			health = min(health + health_regeneration * delta, health_max)
+			#Transisi Enemy wandering
+>>>>>>> Stashed changes
 			if $Timer.is_stopped():
 				state_enemy = STATE.WANDER
 				update_target_position()
@@ -81,4 +119,33 @@ func _physics_process(delta):
 			if is_at_target_position():
 				state_enemy = STATE.IDLE
 				enemy_idle()
+<<<<<<< Updated upstream
 	velocity = move_and_slide(velocity, Vector2.UP)
+=======
+	self.velocity = move_and_slide(velocity, Vector2.UP)
+
+#Animasi enemy state	
+func set_anim_state():
+	animationTree.set("parameters/Walk/blend_position", facing)
+	animationTree.set("parameters/Shoot/blend_position", facing)
+	animationTree.set("parameters/Idle/blend_position", facing)
+	animationTree.set("parameters/Aim/blend_position", facing)
+
+#Untuk enemy berhentinya	
+func aim_still():
+	velocity = Vector2.ZERO
+	
+#Hit enemy
+func hit(damage):
+	health -= damage
+	print(health)
+	if health > 0:
+		pass #Replace with damage code
+	else:
+		velocity = Vector2.ZERO
+		$Mafia.hide()
+		$CollisionShape2D.set_deferred("disabled", true)
+		$Area2D.set_deferred("disabled", true)
+		emit_signal("death")
+		queue_free()
+>>>>>>> Stashed changes
