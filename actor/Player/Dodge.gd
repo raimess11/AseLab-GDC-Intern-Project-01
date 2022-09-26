@@ -42,14 +42,12 @@ func _process(delta):
 func addEnemyList(enemyName: String, indicatorState):
 	enemyListWithIndication[enemyName] = indicatorState
 	if !enemyList.has(enemyName):
-		print(enemyList)
 		enemyList.append(enemyName)
 	
 
 #delete enemy pada list, panggil jika enemy tidak aim player lagi
 func deleteEnemyList(enemyName: String):
 	enemyListWithIndication.erase(enemyName)
-	print(enemyList)
 	enemyList.erase(enemyName)
 
 
