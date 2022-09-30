@@ -54,7 +54,8 @@ func _physics_process(delta):
 	position.y = lerp(position.y, get_parent().position.y, 0.5)
 	#kalo di kiri(kanan?), flip biar ga kebalik pistolnya
 	flip_v = true if player.global_position.x < global_position.x else false
-	
+	if indicator.visible == true:
+		yieldResult = "continue"
 	#cek jarak pistol sama player
 	if (global_position.distance_to(player.global_position) < 350) :
 		dodge.addEnemyList(get_parent().name, indicationState)
@@ -67,9 +68,9 @@ func _physics_process(delta):
 				#kalo raycast hit ke player, tembak
 				shotBullet()
 	else:
-		if indicator_player.is_playing():
-			indicator_player.seek(indicator_player.current_animation_length)
 		yieldResult = "cancel"
+		if indicationState == INDICATION_STATE.yellow:
+			bullet_instance.queue_free()
 		indicator.hide()
 		enemyAiming = false
 		dodge.deleteEnemyList(get_parent().name)
@@ -77,29 +78,33 @@ func _physics_process(delta):
 func shotBullet():
 	bullet_instance = bullet.instance()
 	indicator.show()
-	yieldResult = "continue"
 	bullet_instance.rotation = rotation + rand_range(-0.1, 0.1)
 	bullet_instance.global_position = $Muzzle.global_position
 	indicator_player.play("Warning")
 	yield(indicator_player, "animation_finished")
-	print(yieldResult)
+	print(yieldResult, " 1")
 	if yieldResult == "cancel":
 		print("shot bullet got cancelled")
 		return
 	indicator_player.play("Attack")
 	indicator_player.playback_speed = 0.5
 	indicationState = INDICATION_STATE.yellow
-	emit_signal("yellow", get_parent().name)
+	bullet_instance.name = "{0}bullet_{1}".format([bulletId, get_parent().name])
+	var bullet_name = bullet_instance.name
+	bullet_instance.set_process(false)
+	bullet_instance.visible = false
+	emit_signal("yellow", get_parent().name, bullet_instance)
+	get_parent().add_child(bullet_instance)
 	yield(indicator_player, "animation_finished")
-	print(yieldResult)
+	print(yieldResult, " 2")
 	if yieldResult == "cancel":
 		print("shot bullet got cancelled")
 		return
-	bullet_instance.name = "{0}bullet_{1}".format([bulletId, get_parent().name])
-	var bullet_name = bullet_instance.name
-	get_parent().add_child(bullet_instance)
-	bullet_instance.connect("tree_exited", dodge, "bulletQueueFree", [bullet_name])
-	emit_signal("red", get_parent().get_node(bullet_name))
+	var wr = weakref(bullet_instance)
+	if !(!wr.get_ref()):
+		bullet_instance.set_process(true)
+		bullet_instance.visible = true
+		bullet_instance.connect("tree_exited", dodge, "bulletQueueFree", [bullet_name])
 	indicationState = INDICATION_STATE.red
 	can_fire = false
 	yield(get_tree().create_timer(2),"timeout")

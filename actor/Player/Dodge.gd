@@ -6,14 +6,19 @@ var enemyNeedToBeDodged: Array = []
 var enemyListWithIndication: Dictionary = {}
 var bulletList: Array = []
 var listOfBulletNeedToBeDodged: Dictionary = {}
+
+#bullet yang perlu didodge
 var bullet
+
+#weakref
+var wr
 
 #jika player gagal dodge
 var enemyDodgingFailed: Array = []
 var dodgingFailed = false
 
 #untuk chain attack
-var chainAttack = false
+var isDodging = false
 var index = 0
 
 #timer dan cooldown
@@ -60,13 +65,13 @@ func _input(event):
 	else:
 		print("failed")
 
-#jika enemy kuning, maka add enemy pada list enemy yang harus didodge
-func yellowTriggered(enemyName):
+#jika enemy kuning, maka add enemy dan bullet pada list yang harus didodge
+func yellowTriggered(enemyName, bullet):
 	enemyNeedToBeDodged.append(enemyName)
-
-#jika enemy merah, maka add bullet pada list enemy yang harus didodge
-func redTriggered(bullet):
 	listOfBulletNeedToBeDodged[bullet.name.split("_", true)[1]] = bullet
+
+func redTriggered(bullet):
+	pass
 
 #jika enemy hitam
 func blackTriggered(enemyName, bulletName):
@@ -83,20 +88,33 @@ func bulletQueueFree(bulletName):
 	if listOfBulletNeedToBeDodged.has(bulletName):
 		listOfBulletNeedToBeDodged.erase(bulletName)
 
+
 func dodging():
 	if !enemyListWithIndication.has(enemyNeedToBeDodged[0]):
 		print("enemy doesn't exist")
-		endChainAttack()
+		endDodging()
 		return
 	if enemyListWithIndication[enemyNeedToBeDodged[0]] == INDICATION_STATE.yellow:
-		endChainAttack()
+		print("dodging failed, too early")
+		endDodging()
 		dodgingFailed = true
 	elif enemyListWithIndication[enemyNeedToBeDodged[0]] == INDICATION_STATE.red:
+		if !isDodging:
+			isDodging = true
+			bullet = listOfBulletNeedToBeDodged[enemyNeedToBeDodged[0]]
+			wr = weakref(bullet)
+			if (!wr.get_ref()):
+				print("bullet doesn't exist")
+				endDodging()
+				return
+			bullet.get_node("Sprite").modulate = Color(1.0,0.0,0.0,1.0)
+			beginDodging()
+			return
 		bullet = listOfBulletNeedToBeDodged[enemyNeedToBeDodged[0]]
 		var wr = weakref(bullet)
 		if (!wr.get_ref()):
 			print("bullet doesn't exist")
-			endChainAttack()
+			endDodging()
 			return
 		print(bullet)
 		bullet.get_node("Sprite").modulate = Color(1.0,1.0,1.0,1.0)
@@ -108,37 +126,40 @@ func dodging():
 		if enemyNeedToBeDodged.size() > 0:
 			if listOfBulletNeedToBeDodged.has(enemyNeedToBeDodged[0]):
 				bullet = listOfBulletNeedToBeDodged[enemyNeedToBeDodged[0]]
+			elif enemyList.has(enemyNeedToBeDodged[0]) and enemyListWithIndication[enemyNeedToBeDodged[0]] == INDICATION_STATE.yellow:
+				beginDodging()
+				return
 			else:
-				endChainAttack()
+				endDodging()
 				return
 			wr = weakref(bullet)
 			if (!wr.get_ref()):
 				print("bullet doesn't exist")
-				endChainAttack()
+				endDodging()
 				return
 			print(bullet)
 			bullet.get_node("Sprite").modulate = Color(1.0,0.0,0.0,1.0)
-			if !chainAttack:
-				chainAttack = true
-				beginChainAttack()
+			if !isDodging:
+				isDodging = true
+				beginDodging()
 		else:
-			endChainAttack()
+			endDodging()
 
 func _on_Timer_timeout():
-	endChainAttack()
+	endDodging()
 
-func beginChainAttack():
+#memulai dodging
+func beginDodging():
 	Engine.time_scale = 0.05
-	timer.wait_time = 10.0 * Engine.time_scale
+	timer.wait_time = 1000000.0 * Engine.time_scale
 	timer.start()
 
 func beginCooldown():
 	cooldown.wait_time = 1.0
 	cooldown.start()
 
-func endChainAttack():
-	index = 0
-	chainAttack = false
+func endDodging():
+	isDodging = false
 	Engine.time_scale = 1.0
 	listOfBulletNeedToBeDodged.clear()
 	enemyNeedToBeDodged = []
