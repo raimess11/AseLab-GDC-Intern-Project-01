@@ -7,7 +7,10 @@ enum STATE {
 }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 #Custom signal
 signal death
 
@@ -134,7 +137,32 @@ func set_anim_state():
 #Untuk enemy berhentinya	
 func aim_still():
 	velocity = Vector2.ZERO
+<<<<<<< Updated upstream
 	
+=======
+
+#FUNGSI BUAT PATHFINDING
+#Fungsi buat jalan sesuai dengan path
+func navigate():
+	if path.size() > 0:
+		velocity = global_position.direction_to(path[1]) * run_speed
+		
+		# If reached the destination, remove this point from path array
+		if global_position == path[0]:
+			path.pop_front()
+
+func generate_path():
+	if levelNavigation != null and player != null:
+		path = levelNavigation.get_simple_path(global_position, player.global_position, false)
+
+#Fungsi buat check visibilitas player oleh enemy
+func check_player_in_detection():
+	var collider = los.get_collider()
+	if collider:
+		player_spotted = true
+		print("raycast collided")    # Debug purposes
+		
+>>>>>>> Stashed changes
 #Hit enemy
 func hit(damage):
 	health -= damage
@@ -142,10 +170,18 @@ func hit(damage):
 	if health > 0:
 		pass #Replace with damage code
 	else:
+<<<<<<< Updated upstream
 		velocity = Vector2.ZERO
 		$Mafia.hide()
 		$CollisionShape2D.set_deferred("disabled", true)
 		$Area2D.set_deferred("disabled", true)
 		emit_signal("death")
+		queue_free()
+>>>>>>> Stashed changes
+=======
+		set_physics_process(false)
+		#Signal untuk ke script player
+		emit_signal("death")
+		yield(get_tree().create_timer(1.5), "timeout")
 		queue_free()
 >>>>>>> Stashed changes

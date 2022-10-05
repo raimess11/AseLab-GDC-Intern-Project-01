@@ -81,5 +81,29 @@ func _physics_process(delta):
 	
 	move_and_collide(velocity)
 
+<<<<<<< Updated upstream
 func _on_Timer_timeout():
 	is_cooldown = false
+=======
+#fungsi yang ngubah current health
+func _set_health(value) :
+	#dupe health untuk cek apakah health setelah damage berubah atau tdk
+	var prev_health = health
+	#ubah health sebanyak value
+	health = clamp(value, 0, max_health)
+	#kalo berubah A.K.A health sebelumnya beda dengan current health
+	if not (health == prev_health) :
+		#emit sinyal health berubah
+		emit_signal("health_changed",health)
+		#kalo health 0, emit sinyal player mati
+		if health == 0 :
+			kill()
+			emit_signal("player_killed")
+	#debug test, making sure health berubah di output
+	print(health)
+#PS can add anim iframes or red flash damage later on
+
+func _on_AttackArea_body_entered(body):
+	if body.name == "Enemy":
+		body.hit(100)
+>>>>>>> Stashed changes
