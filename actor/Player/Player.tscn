@@ -727,6 +727,7 @@ margin_bottom = -39.0
 interaction_component_nodepath = NodePath("../Sprite/Interaction")
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
 one_shot = true
 
 [node name="Sprite2" type="Sprite" parent="."]
