@@ -222,11 +222,11 @@ func _physics_process(delta):
 #	self.velocity = move_and_slide(velocity, Vector2.UP)
 
 #Animasi enemy state	
-#func set_anim_state():
-#	animationTree.set("parameters/Walk/blend_position", facing)
-#	animationTree.set("parameters/Shoot/blend_position", facing)
-#	animationTree.set("parameters/Idle/blend_position", facing)
-#	animationTree.set("parameters/Aim/blend_position", facing)
+func set_anim_state():
+	animationTree.set("parameters/Walk/blend_position", facing)
+	animationTree.set("parameters/Shoot/blend_position", facing)
+	animationTree.set("parameters/Idle/blend_position", facing)
+	animationTree.set("parameters/Aim/blend_position", facing)
 
 #Untuk enemy berhentinya	
 #func aim_still():

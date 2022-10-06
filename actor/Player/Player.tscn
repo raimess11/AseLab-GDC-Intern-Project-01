@@ -643,7 +643,6 @@ radius = 13.0
 radius = 14.0045
 
 [node name="Player" type="KinematicBody2D"]
-position = Vector2( 42, 25 )
 collision_layer = 2
 script = ExtResource( 2 )
 
