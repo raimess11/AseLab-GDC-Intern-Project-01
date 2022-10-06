@@ -1,6 +1,8 @@
 extends Area2D
 
 export var bullet_speed = 1500
+var isDodged = false
+var isUneffectedByDodge = false
 
 func _ready() :
 	#set as top level biar ga ikut berubah kalo parentnya berubah
