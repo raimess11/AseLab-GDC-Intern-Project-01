@@ -1,0 +1,11 @@
+extends RayCast2D
+
+var target : Player = null
+
+func _physics_process(_delta: float) -> void:
+	if is_colliding():
+		if get_collider() is Player :
+			target = get_collider()
+
+func _collider_is_player() : 
+	return target is Player

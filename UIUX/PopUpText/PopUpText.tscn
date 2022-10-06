@@ -1,0 +1,83 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://UIUX/PopUpText/PopUpText.gd" type="Script" id=1]
+[ext_resource path="res://UIUX/Asset/ChiKareGo2.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="StreamTexture" id=4]
+flags = 4
+load_path = "res://.import/popuptextfix.png-6262161ecc92112e194571ef121f9cba.stex"
+
+[sub_resource type="DynamicFont" id=2]
+size = 32
+extra_spacing_top = -105
+extra_spacing_bottom = 25
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=1]
+size = 23
+extra_spacing_bottom = -2
+font_data = ExtResource( 3 )
+
+[sub_resource type="StreamTexture" id=3]
+flags = 4
+load_path = "res://.import/Enter.png-e01a57c4aece5e16d2be9da87bea01ef.stex"
+
+[node name="popuptext" type="CanvasLayer"]
+script = ExtResource( 1 )
+
+[node name="TextboxContainer" type="MarginContainer" parent="."]
+margin_left = 240.0
+margin_top = 456.0
+margin_right = 781.0
+margin_bottom = 559.0
+
+[node name="Popuptextwphoto-01" type="Sprite" parent="TextboxContainer"]
+position = Vector2( 278, -64 )
+scale = Vector2( 0.103832, 0.103832 )
+texture = SubResource( 4 )
+
+[node name="Nama Karakter" type="Label" parent="TextboxContainer"]
+margin_top = 51.0
+margin_right = 541.0
+margin_bottom = 51.0
+custom_fonts/font = SubResource( 2 )
+text = "    Nartoohhh"
+
+[node name="MarginContainer" type="MarginContainer" parent="TextboxContainer"]
+margin_right = 541.0
+margin_bottom = 103.0
+
+[node name="Panel" type="Panel" parent="TextboxContainer/MarginContainer"]
+visible = false
+margin_right = 541.0
+margin_bottom = 103.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TextboxContainer/MarginContainer"]
+margin_right = 541.0
+margin_bottom = 103.0
+
+[node name="Start" type="Label" parent="TextboxContainer/MarginContainer/HBoxContainer"]
+margin_right = 10.0
+margin_bottom = 21.0
+size_flags_vertical = 0
+custom_fonts/font = SubResource( 1 )
+text = "*"
+
+[node name="Label" type="Label" parent="TextboxContainer/MarginContainer/HBoxContainer"]
+margin_left = 14.0
+margin_right = 541.0
+margin_bottom = 103.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 1 )
+text = "Ngetik Textnya di PopUpText.gd
+(Text ini gak bakal muncul kalo di play)"
+autowrap = true
+clip_text = true
+
+[node name="Kindpng7871622" type="Sprite" parent="TextboxContainer/MarginContainer/HBoxContainer"]
+position = Vector2( 529, 98 )
+scale = Vector2( 0.0180138, 0.0180138 )
+texture = SubResource( 3 )
+
+[node name="Tween" type="Tween" parent="."]

@@ -49,12 +49,6 @@ func set_isPlayingTrigger(value):
 	if !isPlayingChat and !isPlayingTrigger:
 		self.isPlaying = false
 
-func _input(delta):
-	if isPlaying:
-		yield(self,"dialougeFinish")
-	if get_parent().active and Input.is_action_just_pressed("interact"):
-		dialougeProcess()
-
 func dialougeProcess():
 	if lineNum < len(line):
 		if "Chat" in line[lineNum]:
@@ -63,9 +57,8 @@ func dialougeProcess():
 			speechBalloon.visible = false
 		if "Trigger" in line[lineNum]:
 			triggerProcess()
-		yield(self,"dialougeFinish")
-		print(lineNum)
 		lineNum += 1
+		yield(self,"dialougeFinish")
 	else:
 		lineNum = 0
 		speechBalloon.visible = false
@@ -79,7 +72,10 @@ func chatProcess():
 	
 func triggerProcess():
 	self.isPlayingTrigger = true
-	print('m')
 	get_node("ForTrigger").play(line[lineNum]["Trigger"])
 	yield(get_node("ForTrigger"),"animation_finished")
 	self.isPlayingTrigger = false
+	
+	
+func dialougeSkip():
+	speechBalloon.skipSpeechBubble()

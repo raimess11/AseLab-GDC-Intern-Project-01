@@ -1,0 +1,7 @@
+[gd_scene format=2]
+
+[node name="Grounds" type="Navigation2D"]
+__meta__ = {
+"_editor_description_": "pathfinding reference:
+https://youtu.be/0fPOt0Jw52s"
+}
