@@ -177,3 +177,8 @@ func staminaa():
 
 
 
+
+
+func _on_AttackArea_body_entered(body):
+	if body.name == "Enemy":
+		body.hit(100)

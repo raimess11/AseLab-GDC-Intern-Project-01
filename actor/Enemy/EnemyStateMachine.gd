@@ -9,6 +9,14 @@ enum STATE {
 
 enum States { IDLE, FOLLOW }
 
+#Custom signal
+signal death
+
+#Enemy Stats
+var health = 200
+var health_max = 200
+var health_regeneration = 1
+
 #Variabel buat animasi enemy searah dengan player
 var facing = Vector2.ZERO
 
@@ -147,7 +155,9 @@ func _physics_process(delta):
 		STATE.IDLE:
 			self.velocity = facing
 			animationState.travel("Idle")
-			set_anim_state()
+#			set_anim_state()
+			# Regenerates health
+			health = min(health + health_regeneration * delta, health_max)
 			#Transisi Enemy wandering
 			if $Timer.is_stopped():
 				state_enemy = STATE.WANDER
@@ -262,3 +272,16 @@ func _change_state(new_state):
 		# We don't want the character to move back to it in this example.
 		_target_point_world = _path[1]
 	_state = new_state
+
+#Hit enemy
+func hit(damage):
+	health -= damage
+	print(health)
+	if health > 0:
+		pass #Replace with damage code
+	else:
+		set_physics_process(false)
+		#Signal untuk ke script player
+		emit_signal("death")
+		yield(get_tree().create_timer(1.5), "timeout")
+		queue_free()
