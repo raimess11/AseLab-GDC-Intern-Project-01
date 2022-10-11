@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/actor_attack_sheet.png-22ea512f06510684be3d13547a33bf46.stex"
+path="res://.import/White for xray.png-01948492616c17772dd521d5b604abbc.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/actor_attack_sheet.png"
-dest_files=[ "res://.import/actor_attack_sheet.png-22ea512f06510684be3d13547a33bf46.stex" ]
+source_file="res://Assets/White for xray.png"
+dest_files=[ "res://.import/White for xray.png-01948492616c17772dd521d5b604abbc.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
