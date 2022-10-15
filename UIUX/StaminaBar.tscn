@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://UIUX/Asset/ChiKareGo2.ttf" type="DynamicFontData" id=1]
+
+[sub_resource type="DynamicFont" id=1]
+size = 20
+font_data = ExtResource( 1 )
+
+[node name="ProgressBar" type="ProgressBar"]
+margin_left = 274.0
+margin_top = 222.0
+margin_right = 543.0
+margin_bottom = 256.0
+value = 100.0
+
+[node name="Stamina" type="Label" parent="."]
+margin_left = -105.0
+margin_top = 7.0
+margin_right = -3.0
+margin_bottom = 26.0
+custom_fonts/font = SubResource( 1 )
+text = "Stamina Bar"

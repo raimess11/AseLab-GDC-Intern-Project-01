@@ -96,6 +96,7 @@ func move_state(delta):
 			else:
 				yield(get_tree().create_timer(3),"timeout")
 				stamina = 100
+				$ProgressBar.value = 100
 				
 		if Input.is_action_pressed("ui_right") || Input.is_action_pressed("ui_left"):
 			if stamina > 0 :
@@ -106,6 +107,7 @@ func move_state(delta):
 			else:
 				yield(get_tree().create_timer(3),"timeout")
 				stamina = 100
+				$ProgressBar.value = 100
 
 		if Input.is_action_pressed("ui_down") && Input.is_action_pressed("ui_left"):
 			if stamina > 0:
@@ -117,6 +119,7 @@ func move_state(delta):
 			else:
 				yield(get_tree().create_timer(3),"timeout")
 				stamina = 100
+				$ProgressBar.value = 100
 			
 		if Input.is_action_pressed("ui_up") && Input.is_action_pressed("ui_right"):
 			if stamina > 0:
@@ -128,6 +131,7 @@ func move_state(delta):
 			else:
 				yield(get_tree().create_timer(3),"timeout")
 				stamina = 100
+				$ProgressBar.value = 100
 	move_and_collide(velocity)
 
 func attack_state(delta):
@@ -171,13 +175,9 @@ func _set_health(value) :
 func staminaa():
 	if stamina > 0:
 		stamina -= 30
-		print(stamina)
-
-
-
-
-
-
+		$ProgressBar.value -= 30
+		print("Stamina : ",stamina)
+		print("Stamina Bar : ", $ProgressBar.value)
 
 func _on_AttackArea_body_entered(body):
 	if body.name == "Enemy":
