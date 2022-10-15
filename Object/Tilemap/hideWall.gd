@@ -1,6 +1,6 @@
 extends TileMap
 
-onready var tween = get_node("../Tween")
+onready var tween = get_node("Tween")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
