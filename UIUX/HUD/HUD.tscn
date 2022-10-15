@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://UIUX/Asset/ChiKareGo2.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://UIUX/HUD/time.gd" type="Script" id=2]
+[ext_resource path="res://UIUX/pause_menu/PauseMenu.tscn" type="PackedScene" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 30
+font_data = ExtResource( 1 )
+
+[node name="HUD" type="Control"]
+pause_mode = 1
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="time" type="Label" parent="."]
+pause_mode = 1
+physics_interpolation_mode = 2
+margin_left = 886.0
+margin_top = 20.0
+margin_right = 992.0
+margin_bottom = 49.0
+custom_fonts/font = SubResource( 1 )
+text = "00:00:00"
+script = ExtResource( 2 )
+
+[node name="Pause Menu" parent="." instance=ExtResource( 3 )]
+pause_mode = 2
+anchor_left = 12.85
+anchor_top = 7.15
+anchor_right = 13.85
+anchor_bottom = 8.15
